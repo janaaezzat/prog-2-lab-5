@@ -1,4 +1,3 @@
-package Enviroment;
 import mission.ExplorationMission;
 import mission.Mission;
 import RoboticUnits.RoboticUnits;
