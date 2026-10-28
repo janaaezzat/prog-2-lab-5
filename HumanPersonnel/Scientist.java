@@ -1,0 +1,20 @@
+package HumanPersonnel;
+
+import java.util.List;
+
+public class Scientist extends HumanPersonnel{
+    public Scientist(String name, String identificationNum, String currentLocation, List<String> skills, double healthStatus){
+     super(name, identificationNum, currentLocation, skills,healthStatus);
+    }
+
+    @Override
+    public void duty() {
+        System.out.println("Scientist "+getName());
+    }
+
+    @Override
+    public boolean canPerform(String type) {
+        return super.canPerform(type)&& ("Research".equals(type));
+    }
+    //htrg3 true lw available ,health aktar men 50,fatigue a2al men 50,type howa "Research"
+}
