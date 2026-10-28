@@ -38,7 +38,7 @@ public class Facilities {
         this.food=food;
         this.fuel=fuel;
         this.battery=battery;
-        this.medicalSupplies=battery;
+        this.medicalSupplies=medicalSupplies;
         this.spareParts=spareParts;
         if(operationalStatus==true){  //resources in an unavailable facility do not count
         oxygenTotal+=oxygen;
@@ -128,69 +128,166 @@ public class Facilities {
     public void setOperationalStatus(boolean operationalStatus) {
         this.operationalStatus = operationalStatus;
     }
-    public void setOxygen(int oxygen){
-        if(oxygen<0){
-            System.out.println("Number of units can't be negative");
+    //han3ml b2a l kol resource add w consume 34an manla8bat4 el colony w heya 3izah tezawed badal ma t set an entire number mn el awal zay ma kanet bt3ml
+    public void addOxygen(int amount) {
+        if (amount <= 0) {
+            System.out.println("Error: Amount to add must be positive.");
             return;
         }
-        //updating both the faciliy's oxygen and the total oxygen
-        int difference=this.oxygen-oxygen;
-        oxygenTotal+=difference;  //law el difference bl negative el total 7ay2el law bl positive el total 7ayzeed
-        this.oxygen = oxygen;
+        this.oxygen += amount;
+        oxygenTotal += amount;
     }
-    public void setWater(int water){
-        if(water<0){
-            System.out.println("Number of units can't be negative");
-            return;
+
+    public boolean consumeOxygen(int amount) {
+        if (amount <= 0) {
+            System.out.println("Error: Amount to consume must be positive.");
+            return false;
         }
-        int difference=this.water-water;
-        waterTotal+=difference;
-        this.water = water;
+        if (this.oxygen < amount) {
+            System.out.println("Error: Insufficient oxygen in this facility.");
+            return false;
+        }
+        this.oxygen -= amount;
+        oxygenTotal -= amount;
+        return true;
     }
-    public void setFood(int food){
-        if(food<0){
-            System.out.println("Number of units can't be negative");
+
+    public void addWater(int amount) {
+        if (amount <= 0) {
+            System.out.println("Error: Amount to add must be positive.");
             return;
         }
-        int difference=this.food-food;
-        foodTotal+=difference;
-        this.food = food;
+        this.water += amount;
+        waterTotal += amount;
     }
-    public void setFuel(int fuel){
-        if(fuel<0){
-            System.out.println("Number of units can't be negative");
-            return;
+
+    public boolean consumeWater(int amount) {
+        if (amount <= 0) {
+            System.out.println("Error: Amount to consume must be positive.");
+            return false;
         }
-        int difference=this.fuel-fuel;
-        fuelTotal+=difference;
-        this.fuel = fuel;
+        if (this.water < amount) {
+            System.out.println("Error: Insufficient water in this facility.");
+            return false;
+        }
+        this.water -= amount;
+        waterTotal -= amount;
+        return true;
     }
-    public void setBattery(int battery){
-        if(battery<0){
-            System.out.println("Number of units can't be negative");
+
+    public void addFood(int amount) {
+        if (amount <= 0) {
+            System.out.println("Error: Amount to add must be positive.");
             return;
         }
-        int difference=this.battery-battery;
-        batteryTotal+=difference;
-        this.battery = battery;
+        this.food += amount;
+        foodTotal += amount;
     }
-    public void setMedicalSupplies(int medicalSupplies){
-        if(medicalSupplies<0){
-            System.out.println("Number of units can't be negative");
-            return;
+
+    public boolean consumeFood(int amount) {
+        if (amount <= 0) {
+            System.out.println("Error: Amount to consume must be positive.");
+            return false;
         }
-        int difference=this.medicalSupplies-medicalSupplies;
-        medicalSuppliesTotal+=difference;
-        this.medicalSupplies = medicalSupplies;
+        if (this.food < amount) {
+            System.out.println("Error: Insufficient food in this facility.");   
+            return false;
+        }
+        this.food -= amount;
+        foodTotal -= amount;
+        return true;
     }
-    public void setSpareParts(int spareParts){
-        if(spareParts<0){
-            System.out.println("Number of units can't be negative");
+
+    public void addFuel(int amount) {
+        if (amount <= 0) {
+            System.out.println("Error: Amount to add must be positive.");
             return;
         }
-        int difference=this.spareParts-spareParts;
-        sparePartsTotal+=difference;
-        this.spareParts = spareParts;
+        this.fuel += amount;
+        fuelTotal += amount;
+    }
+
+    public boolean consumeFuel(int amount) {
+        if (amount <= 0) {
+            System.out.println("Error: Amount to consume must be positive.");
+            return false;
+        }
+        if (this.fuel < amount) {
+            System.out.println("Error: Insufficient fuel in this facility.");   
+            return false;
+        }
+        this.fuel -= amount;
+        fuelTotal -= amount;
+        return true;
+    }
+
+    public void addBattery(int amount) {
+        if (amount <= 0) {
+            System.out.println("Error: Amount to add must be positive.");
+            return;
+        }
+        this.battery += amount;
+        batteryTotal += amount;
+    }
+
+    public boolean consumeBattery(int amount) {
+        if (amount <= 0) {
+            System.out.println("Error: Amount to consume must be positive.");
+            return false;
+        }
+        if (this.battery < amount) {
+            System.out.println("Error: Insufficient battery power in this facility.");  
+            return false;
+        }
+        this.battery -= amount;
+        batteryTotal -= amount;
+        return true;
+    }
+
+    public void addMedicalSupplies(int amount) {
+        if (amount <= 0) {
+            System.out.println("Error: Amount to add must be positive.");
+            return;
+        }
+        this.medicalSupplies += amount;
+        medicalSuppliesTotal += amount;
+    }
+
+    public boolean consumeMedicalSupplies(int amount) {
+        if (amount <= 0) {
+            System.out.println("Error: Amount to consume must be positive.");
+            return false;
+        }
+        if (this.medicalSupplies < amount) {
+            System.out.println("Error: Insufficient medical supplies in this facility.");   
+            return false;
+        }
+        this.medicalSupplies -= amount;
+        medicalSuppliesTotal -= amount;
+        return true;
+    }
+
+    public void addSpareParts(int amount) {
+        if (amount <= 0) {
+            System.out.println("Error: Amount to add must be positive.");
+            return;
+        }
+        this.spareParts += amount;
+        sparePartsTotal += amount;
+    }
+
+    public boolean consumeSpareParts(int amount) {
+        if (amount <= 0) {
+            System.out.println("Error: Amount to consume must be positive.");
+            return false;
+        }
+        if (this.spareParts < amount) {
+            System.out.println("Error: Insufficient spare parts in this facility.");    
+            return false;
+        }
+        this.spareParts -= amount;
+        sparePartsTotal -= amount;
+        return true;
     }
     public void colonyStatusReport(){ //should it be more detailed to specify how much each facility subclass has?
         System.out.println("Colony wide oxygen resource total: "+oxygenTotal+" units");

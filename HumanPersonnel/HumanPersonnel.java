@@ -33,7 +33,7 @@ public abstract class HumanPersonnel {
     }
 
     public void setName(String name) {
-        if(name.isEmpty()||name==null)
+        if(name==null || name.isEmpty())
             System.out.println("Invalid name");
         else
         this.name = name;
@@ -44,7 +44,7 @@ public abstract class HumanPersonnel {
     }
 
     public void setIdentificationNum(String identificationNum) {
-        if(identificationNum.isEmpty()||identificationNum==null)
+        if(identificationNum==null || identificationNum.isEmpty())
             System.out.println("Invalid ID");
         else
         this.identificationNum = identificationNum;
@@ -109,8 +109,4 @@ public abstract class HumanPersonnel {
     public boolean canPerform(String type){
         return this.available && this.healthStatus>50.0 && this.fatigueLevel<50.0;
     }
-
-
-
-
 }
