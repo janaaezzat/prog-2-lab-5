@@ -98,8 +98,20 @@ public void advanceTime() {
         if (elapsedTime >= duration) {
             completeMission();
         }
+        for (HumanPersonnel p : assignedPersonnel) {
+             if (!p.isAvailable()) { // If they are working on a mission
+                p.increaseFatigue(2.0); // Fatigue ticks up every time unit
+            }
+        }
+
+        for (RoboticUnits r : assignedRobots) {
+            if (!r.isAvailable()) { // If the robot is active
+                r.drainBattery(5); // Battery drains every time unit
+            }
+        }
     }
  }
+
 //keda complete aw fail el mission w release el personnel w el robots 34an yest5dmo fe missions tanya
 public void completeMission() {
     if (status == MissionStatus.IN_PROGRESS) {

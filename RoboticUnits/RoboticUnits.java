@@ -89,6 +89,19 @@ public abstract class RoboticUnits {
         return this.available&&this.battery > 20 && this.damageStatus < 20.0;//hwa hena 34an el la8bta ne5aly deh health 34an tbe2a aktar mn 20 wla eh (gemy knt bas2alo 3la 7aga tanya aslan)
       }
 
+    // Drain battery power (ensuring it never drops below 0)
+    public void drainBattery(int amount) {
+    if (amount > 0) {
+        this.battery = Math.max(0, this.battery - amount);
+        }
+    }
+
+    // Increase damage status (e.g., during rough terrain or dust storms)
+    public void increaseDamage(double amount) {
+    if (amount > 0) {
+        this.damageStatus = Math.min(100.0, this.damageStatus + amount);
+        }
+    }
 
 }
 

@@ -1,10 +1,19 @@
 package HumanPersonnel;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class MedicalOfficer extends HumanPersonnel{
     public MedicalOfficer(String name, String identificationNum, String currentLocation, List<String> skills, double healthStatus){
         super(name, identificationNum, currentLocation, skills,healthStatus);
+
+        if (this.skills == null) {
+            this.skills = new ArrayList<>();
+        }
+        if (!this.skills.contains("Medical")) {
+            this.skills.add("Medical");
+        }
+
     }
 
     @Override
