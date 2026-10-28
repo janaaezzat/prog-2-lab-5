@@ -1,5 +1,6 @@
 package mission;
-
+import HumanPersonnel.HumanPersonnel;
+import RoboticUnits.RoboticUnits;
 import java.util.List;
 import java.util.ArrayList;
 
@@ -23,6 +24,7 @@ public class ExplorationMission extends Mission {
 
     @Override
     public boolean checkRequirements() {
+        return false;//n4elha lma tt3amal
  // check requirements
        
     

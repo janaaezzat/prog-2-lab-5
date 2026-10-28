@@ -1,4 +1,6 @@
 package mission;
+import HumanPersonnel.HumanPersonnel;
+import RoboticUnits.RoboticUnits;
 
 import java.util.List;
 import java.util.ArrayList;
@@ -82,7 +84,7 @@ public void completeMission() {
 
 public abstract boolean checkRequirements();//el missions (subclasses )ht3mlha override 7asab its requirements
 
-}
+
 public void failMission(String reason) {
     if (status != MissionStatus.COMPLETED &&
         status != MissionStatus.FAILED) {
@@ -90,4 +92,5 @@ public void failMission(String reason) {
         status = MissionStatus.FAILED;
         failureReason = reason;
     }
+}
 }
