@@ -22,9 +22,5 @@ public class ExplorationRover extends RoboticUnits{
 
     }
 
-    @Override
-    public boolean canPerform(String type) {
-        return super.canPerform(type)&&("Exploration".equals(type));//super bet4oof el awal el general checks el fl parent
-    }//Even if the rover's battery and health are great, it can only perform missions where the type string matches "Exploration"
-
+   //4elt canPerform 5ales 34an 5alas main class does everything
 }

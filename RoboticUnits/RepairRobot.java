@@ -21,8 +21,5 @@ public class RepairRobot extends RoboticUnits{
 
     }
 
-    @Override
-    public boolean canPerform(String type) {
-        return super.canPerform(type)&&("Repair".equals(type));
-    }
+   //4elt canPerform 5ales 34an 5alas main class does everything
 }

@@ -20,10 +20,6 @@ public class Engineer extends HumanPersonnel{
     public void duty() {
         System.out.println("Engineer "+getName());
     }
-
-    @Override
-    public boolean canPerform(String type) {
-        return super.canPerform(type)&&("Repair".equals(type));
-    }
+    //4elt canPerform 5ales 34an 5alas main class does everything 
 }
 

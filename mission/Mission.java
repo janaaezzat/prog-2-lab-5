@@ -17,7 +17,7 @@ public abstract class Mission {
     protected String targetLocation; //el location ely el mission hatet3ml feha
 
     protected List<HumanPersonnel> assignedPersonnel;//el personnel participated in mission
-    public List<RoboticUnits> assignedRobots;//el robots participated in mission
+    protected List<RoboticUnits> assignedRobots;//el robots participated in mission
 
     protected Map<String, Integer> requiredResources; //deh keda 34an ex "Fuel" -> 50, "Battery" -> 10 fa ye7ot e7tyagat kol mission w tet2ara ba3dein
 
@@ -55,7 +55,7 @@ public String getFailureReason() {
     return failureReason;
 } 
 
-public void addPersonnel(HumanPersonnel person) {
+public void addPersonnel(HumanPersonnel person) {//deh el 4elt 34anha el private list
     assignedPersonnel.add(person);
 }
 

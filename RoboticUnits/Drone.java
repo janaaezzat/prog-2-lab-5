@@ -24,10 +24,6 @@ public class Drone extends RoboticUnits{
     public void task() {
         System.out.println("Drone "+getID()+" performs aerial reconnaissance and operates in areas inaccessible to ground vehicles.");
     }
-
-    @Override
-    public boolean canPerform(String type) {
-        return super.canPerform(type)&&("Reconnaissance".equals(type));
-    }
+    //4elt canPerform 5ales 34an 5alas main class does everything
 
 }

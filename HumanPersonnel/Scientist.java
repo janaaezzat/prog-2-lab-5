@@ -22,11 +22,6 @@ public class Scientist extends HumanPersonnel{
     public void duty() {
         System.out.println("Scientist "+getName());
     }
-
-    @Override
-    public boolean canPerform(String type) {
-        return super.canPerform(type)&& ("Research".equals(type));
-    }
-    //htrg3 true lw available ,health aktar men 50,fatigue a2al men 50,type howa "Research"
+//4elt canPerform 5ales 34an 5alas main class does everything 
 }
 

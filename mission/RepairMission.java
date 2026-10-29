@@ -16,7 +16,7 @@ public class RepairMission extends Mission {
         addResourceRequirement("Food", foodNeeded);
         addResourceRequirement("Water", waterNeeded);
         addResourceRequirement("Oxygen", oxygenNeeded);
-        addResourceRequirement("Spare Parts", sparePartsNeeded);
+        addResourceRequirement("SpareParts", sparePartsNeeded);
     }
 
     public String getRepairLocation() {

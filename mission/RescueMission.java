@@ -7,8 +7,13 @@ import RoboticUnits.Drone;
 
 public class RescueMission extends Mission {
 
-    public RescueMission(String missionId, int duration, String rescueLocation,int foodNeeded,int waterNeeded , int oxygenNeeded, int medicalSupppliesNeeded) {
+    public RescueMission(String missionId, int duration, String rescueLocation,int foodNeeded,int waterNeeded , int oxygenNeeded, int medicalSuppliesNeeded) {
         super(missionId, duration,rescueLocation);
+        addResourceRequirement("Food", foodNeeded);
+        addResourceRequirement("Water", waterNeeded);
+        addResourceRequirement("Oxygen", oxygenNeeded);
+        addResourceRequirement("MedicalSupplies", medicalSuppliesNeeded);
+
     }
 
     @Override
@@ -24,7 +29,7 @@ public class RescueMission extends Mission {
         boolean hasDrone = false;
         for (RoboticUnits r : assignedRobots) {
             // Checks if it's a robotic unit capable of communication/rescue
-            if (r instanceof Drone && r.canPerform("Communication") || r.canPerform("Rescue")) {
+            if (r instanceof Drone && (r.canPerform("Communication") || r.canPerform("Rescue"))) {
                 hasDrone = true;
                 break;
             }

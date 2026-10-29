@@ -23,9 +23,5 @@ public class MedicalOfficer extends HumanPersonnel{
         System.out.println("Medical Officer "+getName());
 
     }
-
-    @Override
-    public boolean canPerform(String type) {
-        return super.canPerform(type)&&("Medical".equals(type));
-    }
+    //4elt canPerform 5ales 34an 5alas main class does everything 
 }
