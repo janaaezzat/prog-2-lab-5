@@ -7,6 +7,8 @@ public class MedicalOfficer extends HumanPersonnel{
     public MedicalOfficer(String name, String identificationNum, String currentLocation, List<String> skills, double healthStatus){
         super(name, identificationNum, currentLocation, skills,healthStatus);
 
+
+        //zawedtaha in all persons 34an skill list
         if (this.skills == null) {
             this.skills = new ArrayList<>();
         }

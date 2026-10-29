@@ -1,21 +1,36 @@
 package mission;
 
+import HumanPersonnel.HumanPersonnel;
+import HumanPersonnel.MedicalOfficer;
+import RoboticUnits.RoboticUnits;
+import RoboticUnits.Drone;
+
 public class RescueMission extends Mission {
-    private String rescueLocation;
 
-    public RescueMission(String missionId, int duration, String rescueLocation) {
-        super(missionId, duration);
-        this.rescueLocation = rescueLocation;
-    }
-
-    public String getRescueLocation() {
-        return rescueLocation;
+    public RescueMission(String missionId, int duration, String rescueLocation,int foodNeeded,int waterNeeded , int oxygenNeeded, int medicalSupppliesNeeded) {
+        super(missionId, duration,rescueLocation);
     }
 
     @Override
     public boolean checkRequirements() {
-        // Example requirement: The rescue location should not be empty
-        return rescueLocation != null && !rescueLocation.isEmpty();
+        boolean hasMedic = false;
+        for (HumanPersonnel p : assignedPersonnel) {
+            if (p instanceof MedicalOfficer && p.canPerform("Medical")) {
+                hasMedic = true;
+                break;
+            }
+        }
+
+        boolean hasDrone = false;
+        for (RoboticUnits r : assignedRobots) {
+            // Checks if it's a robotic unit capable of communication/rescue
+            if (r instanceof Drone && r.canPerform("Communication") || r.canPerform("Rescue")) {
+                hasDrone = true;
+                break;
+            }
+        }
+
+        return hasMedic && hasDrone;
     }
     
 }

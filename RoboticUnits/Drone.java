@@ -1,13 +1,23 @@
 package RoboticUnits;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Drone extends RoboticUnits{
-    private double flyRange;//maktoba fein deh?
-    public Drone(String ID, String currentLocation, int battery, double damageStatus, double flyRange){
-        super(ID, currentLocation, battery, damageStatus);
-        if(flyRange<0.0)
-            System.out.println("Fly range cannot be negative");
-        else
-            this.flyRange = flyRange;
+    //4elt flyRange me4 maktooba f 7eta 
+
+    //zawedt capabilities brdo mission will use drones in rescue and anything that needs communication
+    public Drone(String ID, String currentLocation, int battery, double damageStatus, List<String> capabilities) {
+        super(ID, currentLocation, battery, damageStatus, capabilities);
+        if (this.capabilities == null) {
+            this.capabilities = new ArrayList<>();
+        }
+        if (!this.capabilities.contains("Communication")) {
+            this.capabilities.add("Communication");
+        }
+        if (!this.capabilities.contains("Rescue")) {
+            this.capabilities.add("Rescue");
+        }
     }
 
     @Override
@@ -20,14 +30,4 @@ public class Drone extends RoboticUnits{
         return super.canPerform(type)&&("Reconnaissance".equals(type));
     }
 
-    public double getFlyRange() {
-        return flyRange;
-    }
-
-    public void setFlyRange(double flyRange) {
-        if(flyRange<0.0)
-            System.out.println("Fly range cannot be negative");
-        else
-            this.flyRange = flyRange;
-    }
 }

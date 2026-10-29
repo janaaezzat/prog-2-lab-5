@@ -5,7 +5,7 @@ public abstract class HumanPersonnel {
     private String name, identificationNum, currentLocation;
     private  double healthStatus, fatigueLevel;
     private boolean available;
-    protected List<String> skills;
+    protected List<String> skills;//zawedt deh 34an ye check skills 3nd kol mission
     public HumanPersonnel(String name, String identificationNum, String currentLocation, List <String> skills, double healthStatus){
         if(name==null|| name.isEmpty()) // badelt el tarteeb only 34an lw string bi null hydrb nullpointerexception lw 4af isEmpty el awal
             System.out.println("Invalid name");
@@ -112,8 +112,8 @@ public abstract class HumanPersonnel {
         return this.available && this.healthStatus>50.0 && this.fatigueLevel<50.0 && this.skills != null && this.skills.contains(type);
     }
 
-
-    public void increaseFatigue(double amount) {//increases fatigue level by a specified amount, ensuring it does not exceed 100
+    //increases fatigue level kol ma bnadvance time, ensuring it does not exceed 100
+    public void increaseFatigue(double amount) {
         if (amount < 0) {
             System.out.println("Fatigue increase amount cannot be negative.");
             return;
@@ -122,20 +122,20 @@ public abstract class HumanPersonnel {
     
     }
 
-    // Decrease health (e.g., due to an emergency or harsh environment)
-    public void decreaseHealth(double amount) {//use for emergencies aw lw feh 7aga fl environment
+    // Decrease health (e.g., due to an emergency or harsh environment) lw hnst5dmha for env aw emergencies o.w ne4lha
+    public void decreaseHealth(double amount) {
     if (amount > 0) {
         this.healthStatus = Math.max(0.0, this.healthStatus - amount);
         }
     }
-
-    public void increaseHealth(double amount) {//after successful medical treatment
+    //after successful medical treatment (mmkn ne4lha brdo 34an e7na el mission medical mt3amleen bl assigned lw han3tbr 7ad byt3aleg nesbha bas too much work)
+    public void increaseHealth(double amount) {
     if (amount > 0) {
         this.healthStatus = Math.min(100.0, this.healthStatus + amount);
         }
     }
-
-    public void reduceFatigue(double amount) {//after successful medical treatment
+    //after successful medical treatment (nfso)
+    public void reduceFatigue(double amount) {
     if (amount > 0) {
         this.fatigueLevel = Math.max(0.0, this.fatigueLevel - amount);
         }

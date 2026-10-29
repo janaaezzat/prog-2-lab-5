@@ -36,10 +36,10 @@ public class MarsColony {
     }
 
     if (!mission.checkRequirements()) {
-        mission.failMission("Mission requirements are not satisfied");
+        mission.failMission("Mission requirements for Personnel and/or Robots are not satisfied");
         return; // mission mal2t4 its needed req to start
     }
-
+    //zadet 34an check of requirements
     boolean resourcesSecured = consumeColonyResources(mission.getRequiredResources());
     if (!resourcesSecured) {
         mission.failMission("Insufficient colony resources for this mission.");
@@ -82,7 +82,7 @@ public Mission getActiveMission() {
     return activeMission; // lw no mission active hyrg3 null
 }
 
-
+// deh el hatbda2 te4oof el requirements for missions colony wide
 public boolean consumeColonyResources(Map<String, Integer> requirements) {
     // 1. PRE-CHECK: Verify if colony-wide totals have enough for EVERY requested resource
     for (Map.Entry<String, Integer> entry : requirements.entrySet()) {//by2ra el resources mn el hashmap bta3t kol mission w yet2aked en el colony 3ndha kfaya mn kol resource
@@ -105,8 +105,7 @@ public boolean consumeColonyResources(Map<String, Integer> requirements) {
             return false; // All-or-nothing failed: consume nothing!
         }
     }
-
-    // 2. CONSUMPTION: If all checks pass, pull resources from operational facilities
+    //hena yebda2 yes7ab ba3d ma 3amal check en feh 
     for (Map.Entry<String, Integer> entry : requirements.entrySet()) {
         String resName = entry.getKey();//get key w get value dol taba3 el hashmap (let's learn about it ablaha b2a ma3l4)
         int needed = entry.getValue();

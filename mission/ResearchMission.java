@@ -1,21 +1,29 @@
 package mission;
 
+import HumanPersonnel.HumanPersonnel;
+import HumanPersonnel.Scientist;
+
 public class ResearchMission extends Mission {
-    private String researchTopic;
+    private String labLocation;
 
-    public ResearchMission(String missionId, int duration, String researchTopic) {
-        super(missionId, duration);
-        this.researchTopic = researchTopic;
-    }
-
-    public String getResearchTopic() {
-        return researchTopic;
+    public ResearchMission(String missionId, int duration, String labLocation, int foodNeeded, int waterNeeded, int oxygenNeeded, int fuelNeeded) {
+        super(missionId, duration, labLocation);
+        this.labLocation = labLocation;
+        addResourceRequirement("Food", foodNeeded);
+        addResourceRequirement("Water", waterNeeded);
+        addResourceRequirement("Oxygen", oxygenNeeded);
+        addResourceRequirement("Fuel", fuelNeeded);
     }
 
     @Override
     public boolean checkRequirements() {
-        // Example requirement: The research topic should not be empty
-        return researchTopic != null && !researchTopic.isEmpty();
+        if (assignedPersonnel.isEmpty()) return false;
+        for (HumanPersonnel p : assignedPersonnel) {
+            if (!(p instanceof Scientist) || !p.canPerform("Research")) {
+                return false;
+            }
+        }
+        return true;
     }
     
 }

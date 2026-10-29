@@ -14,18 +14,20 @@ public abstract class Mission {
     // hn use it fi el timing management elapsedTime >= duration keda el mission completed 
     private MissionStatus status;
     private String failureReason;
+    protected String targetLocation; //el location ely el mission hatet3ml feha
 
-    private List<HumanPersonnel> assignedPersonnel;//el personnel participated in mission
-    private List<RoboticUnits> assignedRobots;//el robots participated in mission
+    protected List<HumanPersonnel> assignedPersonnel;//el personnel participated in mission
+    public List<RoboticUnits> assignedRobots;//el robots participated in mission
 
     protected Map<String, Integer> requiredResources; //deh keda 34an ex "Fuel" -> 50, "Battery" -> 10 fa ye7ot e7tyagat kol mission w tet2ara ba3dein
 
- public Mission(String missionId, int duration) {
+ public Mission(String missionId, int duration, String targetLocation) {
         this.missionId = missionId;
         this.duration = duration;
         this.elapsedTime = 0; // lesa mabd2na4 n3ed
         this.status = MissionStatus.ASSIGNED; 
         this.failureReason = "";
+        this.targetLocation = targetLocation;
 
         this.assignedPersonnel = new ArrayList<>();// hn add feha 2odam 
         this.assignedRobots = new ArrayList<>();
@@ -62,6 +64,8 @@ public void addRobot(RoboticUnits robot) {
 }
 
 //deh hena el subclasses (el missions ely htb2a 3ndna) hy3mlha override 34an y7ddo el requirements ely kol mission me7taga
+//deh el settup bta3 list of req
+
 public void addResourceRequirement(String resourceName, int amount) {
         if (amount > 0) {
             requiredResources.put(resourceName, amount);
@@ -72,13 +76,22 @@ public void addResourceRequirement(String resourceName, int amount) {
         return requiredResources;
     }
 
-
+    //mission hat handle enaha te3adel their locations for later
+    public void updateAgentLocations() {
+        for (HumanPersonnel p : assignedPersonnel) {
+            p.setCurrentLocation(targetLocation);
+        }
+        for (RoboticUnits r : assignedRobots) {
+            r.setCurrentLocation(targetLocation);
+        }
+    }
 
 //start bt8ayar mission state w agent states
 public void startMission() {
     //el colony ht call it lw kol el requirements tmm w mafee4 active mission
     if (status == MissionStatus.ASSIGNED) {
         status = MissionStatus.IN_PROGRESS;
+        updateAgentLocations();
         for (HumanPersonnel p : assignedPersonnel) {
             p.setAvailable(false);
         }
@@ -119,7 +132,7 @@ public void completeMission() {
         releaseAgents();
     }
 }
-
+//deh el validation en feh b2a el 7agat ely el list m7tagaha
 public abstract boolean checkRequirements();//el missions (subclasses )ht3mlha override 7asab its requirements
 
 
