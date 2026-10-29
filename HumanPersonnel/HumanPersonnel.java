@@ -1,4 +1,4 @@
-package HumanPersonnel;
+package humanpersonnel;
 import java.util.List;
 
 public abstract class HumanPersonnel {
@@ -128,16 +128,10 @@ public abstract class HumanPersonnel {
         this.healthStatus = Math.max(0.0, this.healthStatus - amount);
         }
     }
-    //after successful medical treatment (mmkn ne4lha brdo 34an e7na el mission medical mt3amleen bl assigned lw han3tbr 7ad byt3aleg nesbha bas too much work)
-    public void increaseHealth(double amount) {
-    if (amount > 0) {
-        this.healthStatus = Math.min(100.0, this.healthStatus + amount);
-        }
+    public boolean canHandleOxygenLeak(){
+        return (available && healthStatus>0 && instanceof(Engineer) && canPerform("Repair") );
+
+
     }
-    //after successful medical treatment (nfso)
-    public void reduceFatigue(double amount) {
-    if (amount > 0) {
-        this.fatigueLevel = Math.max(0.0, this.fatigueLevel - amount);
-        }
-    }
+    
 }
