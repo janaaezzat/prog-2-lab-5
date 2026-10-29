@@ -60,9 +60,13 @@ public class Enviroment {
                 }
                 break;
             case commDisruption:
-                if(roboticUnits instanceof Drone){
-                    System.out.println("Drone [" + roboticUnits.getID() + "] operation failed. Reason: Remote drones cannot be controlled during communication disruption[cite: 13].");
-                    return false;
+                if(roboticUnits instanceof Drone drone){
+                    if(drone.getFlyRange()>50){
+                        drone.setControlled(false);
+                        return false;
+                    }
+                    else return true;
+
                 }
                 break;
             case normal:
