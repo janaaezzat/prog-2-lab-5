@@ -6,9 +6,11 @@ import RoboticUnits.RoboticUnits;
 import RoboticUnits.Drone;
 
 public class RescueMission extends Mission {
+    private String communicationStationLocation;
 
-    public RescueMission(String missionId, int duration, String rescueLocation,int foodNeeded,int waterNeeded , int oxygenNeeded, int medicalSuppliesNeeded) {
+    public RescueMission(String missionId, int duration,String communicationStationLocation,String rescueLocation,int foodNeeded,int waterNeeded , int oxygenNeeded, int medicalSuppliesNeeded) {
         super(missionId, duration,rescueLocation);
+        this.communicationStationLocation=communicationStationLocation;
         addResourceRequirement("Food", foodNeeded);
         addResourceRequirement("Water", waterNeeded);
         addResourceRequirement("Oxygen", oxygenNeeded);

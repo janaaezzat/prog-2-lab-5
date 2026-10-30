@@ -1,4 +1,6 @@
-package Facilities;
+package facilities;
+import humanpersonnel.*;
+import roboticunits.*;
 
 public class Laboratories extends Facilities {
 public Laboratories(String location,int capacity,boolean operationalStatus,int oxygen,int water,int food,int fuel,int battery,int medicalSupplies,int spareParts){

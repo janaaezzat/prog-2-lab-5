@@ -12,5 +12,10 @@ public class FireResponse extends HumanPersonnel{
             this.skills.add("Fire Response");
         }
     }
-    
+    @Override
+    public boolean canHandleFireEmergency(){
+    return canPerform("Fire Response"); 
+   }
+  
+
 }

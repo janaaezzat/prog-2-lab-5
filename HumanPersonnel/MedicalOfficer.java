@@ -1,4 +1,4 @@
-package HumanPersonnel;
+package humanpersonnel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,4 +24,9 @@ public class MedicalOfficer extends HumanPersonnel{
 
     }
     //4elt canPerform 5ales 34an 5alas main class does everything 
+    @Override
+    public boolean canProvideMedicalAssistance(){
+    return canPerform("Medical");
+    }
+    
 }

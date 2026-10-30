@@ -1,3 +1,4 @@
+package emergencies;
 import Facilities.*;
 import HumanPersonnel.*;
 import RoboticUnits.*;
@@ -7,20 +8,32 @@ import java.util.ArrayList;
 
 public class OxygenLeak extends Emergency{
     Habitat habitat;
-    HumanPersonnel humanResponder=null;
-    RoboticUnits roboticResponder=null;
-    public OxygenLeak(String location,Habitat habitat){
-        super(location);
+    int oxygenLeakAmount;
+    HumanPersonnel humanResponder; //will be used to search for an engineer in colony's list of human personnel
+    RoboticUnits roboticResponder; //will be used to search for a repair robot in colony's list of robotic units
+    public OxygenLeak(String location,Habitat habitat,int oxygenLeakAmount,int emergencyHandleTime){
+        super(location,emergencyHandleTime);
+        if(habitat==null){
+            System.out.println("Invalid habitat");
+            return;
+        }
+        if(oxygenLeakAmount<=0){
+            System.out.println("Invalid oxygen leak amount");
+            return;
+        }
         this.habitat=habitat;
-        if(habitat.getOxygen()<10){
-            habitat.status=false;  //oxygen level must never fall below zero
+        this.oxygenLeakAmount=oxygenLeakAmount;
+        if(habitat.getOxygen()<oxygenLeakAmount){
+            habitat.setOperationalStatus(false);  //oxygen level must never fall below zero
         }
         else{
-            habitat.consumeOxygen(10); //10 units leaked
+            habitat.consumeOxygen(oxygenLeakAmount); //leaked amount
             }
         }
     @Override
-    public boolean checkRequirements(List<HumanPersonnel>humans,List<RoboticUnits>robots){
+    public boolean checkResponders(List<HumanPersonnel>humans,List<RoboticUnits>robots){
+        humanResponder = null; //not found yet
+        roboticResponder = null;
         for(HumanPersonnel h:humans){  
              if (h.canHandleOxygenLeak()){ //oxygen leak needs one engineer
                 humanResponder=h;
@@ -41,27 +54,28 @@ public class OxygenLeak extends Emergency{
 
             return true;
         }
-
-        return false;
+        else{
+            return false;
+        }
     }
     @Override
     public void cantHandleEmergency(){
-        status=false;
-        System.out.println("No available responders to handle emergency.");
+        status=false;  //unresolved
         failureReason="No available responders to handle emergency.";
-        if(habitat.getOxygen()<10){
-            habitat.status=false;  //oxygen level must never fall below zero
+        if(habitat.getOxygen()<oxygenLeakAmount){ //same amount should be deducted again bec repair failed
+            habitat.setOperationalStatus(false);  //oxygen level must never fall below zero
         }
         else{
-            habitat.consumeOxygen(10); //same amount deducted again bec repair failed
+            habitat.consumeOxygen(oxygenLeakAmount);
             }
     }
 
     @Override
-    public void canHandleEmergency(){
+    public void handledSuccessfully(){
         status=true;
         humanResponder.setAvailable(true);
         roboticResponder.setAvailable(true);
+        habitat.setOperationalStatus(true);
         System.out.println("Habitat repaired successfully.");
 
 }}

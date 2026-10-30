@@ -129,9 +129,13 @@ public abstract class HumanPersonnel {
         }
     }
     public boolean canHandleOxygenLeak(){
-        return (available && healthStatus>0 && instanceof(Engineer) && canPerform("Repair") );
-
-
+    return false; //method is overridden in engineer subclass to return true after checking availabilty and health
+     }
+    public boolean canHandleFireEmergency(){
+    return false; 
+     }
+    public boolean canProvideMedicalAssistance(){
+    return false;
     }
     
 }

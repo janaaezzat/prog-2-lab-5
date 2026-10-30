@@ -1,28 +1,55 @@
-
 import java.util.ArrayList;
 import java.util.List;
-
-import Facilities.Facilities;
+import facilities.Facilities;
+import humanpersonnel.HumanPersonnel; 
+import roboticunits.RoboticUnits;
 import java.util.Map;
-
 import mission.Mission;
 import mission.MissionStatus;
+import emergencies.Emergency;
 
 public class MarsColony {
     // field mn noo3 Mission (el data type) ya3ni el variable da hayeshawer 3ala object men Mission aw subclass menha
     private Mission activeMission;// variable hy4eel 2sm el mission ely 4a8ala now , lw no active missions hy4awer 3ala null
-    
     private List<Facilities> facilities;//hatlef 3la facilities t3raf homa meen 34an later hatnady mnhom for resources
-
+    private List<HumanPersonnel>humans;
+    private List<RoboticUnits>robots;
     public MarsColony() {
         this.facilities = new ArrayList<>();
+        this.humans=new ArrayList<>();
+        this.robots=new ArrayList<>();
         this.activeMission = null;
     }
 
-
+    //these 3 methods will be used by client class(client should first create an object then pass it to these methods)to add facility/human/robot to the colony
     public void addFacility(Facilities facility) {
         if (facility != null) {
             facilities.add(facility);
+        }
+    }
+    public void addHuman(HumanPersonnel human) {
+        if (human!= null) {
+            humans.add(human);
+        }
+    }
+    public void addRobot(RoboticUnits robot) {
+        if (robot != null) {
+            robots.add(robot);
+        }
+    }
+    //methods to assign a list of humans/robots to a facility
+    public void assignHumansToFacility(Facilities facility, List<HumanPersonnel> humanList) {
+        if (facility != null && humanList != null) {
+            for (HumanPersonnel human : humanList) {
+                facility.addPersonnel(human);
+            }
+        }
+    }
+    public void assignRobotsToFacility(Facilities facility, List<RoboticUnits> robotList) {
+        if (facility != null && robotList != null) {
+            for (RoboticUnits robot : robotList) {
+                facility.addRoboticUnits(robot);
+            }
         }
     }
 
@@ -149,5 +176,25 @@ public boolean consumeColonyResources(Map<String, Integer> requirements) {
     }
     return true;
 }
+public void reportEmergency(Emergency emergency){ 
+//client class should create an emergency object (of any type) and pass it to this method to be handled
+    if(emergency==null){
+        System.out.println("Invalid emergency.");
+        return;
+    }
+    if(emergency.getStatus()==true){
+        System.out.println("This emergency is already resolved.");
+        return;
+    }
+    if(!emergency.checkResponders(humans,robots)){ //list of colony's agents is passed to the method
+            System.out.println("No responders available to handle emergency");
+            emergency.cantHandleEmergency();
+    }
+   else{
+            emergency.advanceTime(emergency.getEmergencyHandleTime());//handling each emergency type should advance simulation by its emergencyHandleTime attribute
+            emergency.handledSuccessfully(); 
+        }
+} 
 }
+
 
