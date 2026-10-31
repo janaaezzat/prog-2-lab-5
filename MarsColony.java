@@ -1,12 +1,12 @@
 import java.util.ArrayList;
 import java.util.List;
-import Facilities.Facilities;
-import HumanPersonnel.HumanPersonnel;
-import RoboticUnits.RoboticUnits;
+import facilities.Facilities;
+import humanpersonnel.HumanPersonnel;
+import roboticunits.RoboticUnits;
 import java.util.Map;
 import mission.Mission;
 import mission.MissionStatus;
-import Emergencies.Emergency;
+import emergencies.Emergency;
 
 public class MarsColony {
     // field mn noo3 Mission (el data type) ya3ni el variable da hayeshawer 3ala object men Mission aw subclass menha
@@ -37,18 +37,19 @@ public class MarsColony {
             robots.add(robot);
         }
     }
-    //methods to assign a list of humans/robots to a facility
+    //methods to assign a list of humans/robots to a facility->el client beyet3amel ma3 el colony class fa 7aycall el method da wel colony heya el 7atet3amel w t call addPersonnel aw addRoboticUnit el mawgoodeen f class el facilities
     public void assignHumansToFacility(Facilities facility, List<HumanPersonnel> humanList) {
-        if (facility != null && humanList != null) {
+            //client class passes a list of type human personnel and passes a facility object to this method 
+             if (facility != null && humanList != null) {
             for (HumanPersonnel human : humanList) {
-                facility.addPersonnel(human);
+                facility.addPersonnel(human); //el method da f facility class
             }
         }
     }
     public void assignRobotsToFacility(Facilities facility, List<RoboticUnits> robotList) {
         if (facility != null && robotList != null) {
             for (RoboticUnits robot : robotList) {
-                facility.addRoboticUnits(robot);
+                facility.addRoboticUnits(robot); //el method da f facility class
             }
         }
     }
@@ -195,6 +196,28 @@ public void reportEmergency(Emergency emergency){
             emergency.handledSuccessfully(); 
         }
 } 
+
+  public void colonyStatusReport(){
+    //this prints the total of each resource colony-wide(not each facility feeha ad eh)
+    //should it be more detailed to specify how much each facility has?
+        if(facilities.size()==0){
+            System.out.println("There are no facilities added to the colony.");
+            return;
+            }
+        else{ 
+            //getters of total resources are static so i called them using class name directly
+            System.out.println("Colony-wide oxygen resource total: "+Facilities.getOxygenTotal()+" units");
+            System.out.println("Colony-wide water resource total: "+Facilities.getWaterTotal()+" units");
+            System.out.println("Colony-wide food resource total: "+Facilities.getFoodTotal()+" units");
+            System.out.println("Colony-wide fuel resource total: "+Facilities.getFuelTotal()+" units");
+            System.out.println("Colony-wide battery power total: "+Facilities.getBatteryTotal()+" units");
+            System.out.println("Colony-wide medical supplies total: "+Facilities.getMedicalSuppliesTotal()+" units");
+            System.out.println("Colony-wide spare parts total: "+Facilities.getSparePartsTotal()+" units");
+        
+        }
+        }
+
+
 }
 
 

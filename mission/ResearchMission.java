@@ -1,7 +1,7 @@
 package mission;
 
-import HumanPersonnel.HumanPersonnel;
-import HumanPersonnel.Scientist;
+import humanpersonnel.HumanPersonnel;
+import humanpersonnel.Scientist;
 
 public class ResearchMission extends Mission {
     private String labLocation;

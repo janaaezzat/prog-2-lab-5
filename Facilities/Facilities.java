@@ -464,20 +464,6 @@ public class Facilities {
             roboticUnitsList.add(robot);
         }
     }
-
-
-
-
-    public void colonyStatusReport(){ //should it be more detailed to specify how much each facility subclass has?
-        System.out.println("Colony wide oxygen resource total: "+oxygenTotal+" units");
-        System.out.println("Colony wide water resource total: "+waterTotal+" units");
-        System.out.println("Colony wide food resource total: "+foodTotal+" units");
-        System.out.println("Colony wide fuel resource total: "+fuelTotal+" units");
-        System.out.println("Colony wide battery power total: "+batteryTotal+" units");
-        System.out.println("Colony wide medical supplies total: "+medicalSuppliesTotal+" units");
-        System.out.println("Colony wide spare parts total: "+sparePartsTotal+" units");
-        
-        }
 }
 
 

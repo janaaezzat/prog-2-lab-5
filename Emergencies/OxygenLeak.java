@@ -1,7 +1,7 @@
 package emergencies;
-import Facilities.*;
-import HumanPersonnel.*;
-import RoboticUnits.*;
+import facilities.*;
+import humanpersonnel.*;
+import roboticunits.*;
 import java.util.List;
 import java.util.ArrayList;
 
@@ -11,8 +11,8 @@ public class OxygenLeak extends Emergency{
     int oxygenLeakAmount;
     HumanPersonnel humanResponder; //will be used to search for an engineer in colony's list of human personnel
     RoboticUnits roboticResponder; //will be used to search for a repair robot in colony's list of robotic units
-    public OxygenLeak(String location,Habitat habitat,int oxygenLeakAmount,int emergencyHandleTime){
-        super(location,emergencyHandleTime);
+    public OxygenLeak(Habitat habitat,int oxygenLeakAmount,int emergencyHandleTime){
+        super(emergencyHandleTime);
         if(habitat==null){
             System.out.println("Invalid habitat");
             return;
@@ -22,6 +22,7 @@ public class OxygenLeak extends Emergency{
             return;
         }
         this.habitat=habitat;
+        location=habitat.getLocation();
         this.oxygenLeakAmount=oxygenLeakAmount;
         if(habitat.getOxygen()<oxygenLeakAmount){
             habitat.setOperationalStatus(false);  //oxygen level must never fall below zero

@@ -1,7 +1,7 @@
-package Emergencies;
-import Facilities.*;
-import HumanPersonnel.*;
-import RoboticUnits.*;
+package emergencies;
+import facilities.*;
+import humanpersonnel.*;
+import roboticunits.*;
 import java.util.List;
 import java.util.ArrayList;
 
@@ -11,8 +11,8 @@ public class Fire extends Emergency{
     FireResponse[] fireResponders=new FireResponse[3]; //3 fire responder personnel will be needed
     RoboticUnits roboticResponder; //1 repair robot will be needed
     MedicalOfficer medicalAssistance; //1 medical officer will be needed fl a5er to treat lab occupants
-    public Fire(String location,Laboratories lab,int emergencyHandleTime){
-        super(location,emergencyHandleTime);
+    public Fire(Laboratories lab,int emergencyHandleTime){
+        super(emergencyHandleTime);
         if(lab==null){
             System.out.println("Invalid lab.");
             return;
@@ -20,8 +20,9 @@ public class Fire extends Emergency{
         else{
             this.lab=lab;
             lab.consumeOxygen(5); 
-        }
-        lab.setOperationalStatus(false); //lab becomes damaged unavailable for use until repaired
+            location=lab.getLocation();
+            lab.setOperationalStatus(false); //lab becomes damaged unavailable for use until repaired
+            }
         
         for(HumanPersonnel human:lab.getPersonnelList()){ //occupants of lab will need medical assistance
             human.increaseFatigue(3);

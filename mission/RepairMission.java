@@ -1,9 +1,9 @@
 package mission;
 
-import HumanPersonnel.Engineer;
-import HumanPersonnel.HumanPersonnel;
-import RoboticUnits.RepairRobot;
-import RoboticUnits.RoboticUnits;
+import humanpersonnel.Engineer;
+import humanpersonnel.HumanPersonnel;
+import roboticunits.RepairRobot;
+import roboticunits.RoboticUnits;
 
 public class RepairMission extends Mission {
     private String repairLocation;

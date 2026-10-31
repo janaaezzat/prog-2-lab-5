@@ -1,8 +1,8 @@
 import mission.ExplorationMission;
 import mission.Mission;
-import RoboticUnits.RoboticUnits;
-import RoboticUnits.ExplorationRover;
-import RoboticUnits.Drone;
+import roboticunits.RoboticUnits;
+import roboticunits.ExplorationRover;
+import roboticunits.Drone;
 import mission.RescueMission;
 
 public class Enviroment {

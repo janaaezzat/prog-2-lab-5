@@ -1,4 +1,4 @@
-package Emergencies;
+package emergencies;
 import Facilities.Facilities;
 import HumanPersonnel.HumanPersonnel;
 import RoboticUnits.RoboticUnits;
@@ -6,8 +6,14 @@ import java.util.List;
 import java.util.ArrayList; 
 
 abstract public class Emergency{
-    protected String location; //either a facility or martian surface
-    //makan 7doos el emergency
+    //emergency happens either in a facility or in martian surface
+    //so emergency location attribute will either be a facility location or a martian surface location 
+    //the 2 subclasses fire and oxygen leak occur in a facility,so they don't need to take location as an argument in their constructor,ana 7a assign el emergency location bta3hom bl facility location
+    //that's why i used overloading 3shn a3ml 2 constructors lel emergency class,wa7da lel subclasses el leha location argument w wa7da lel subclasses el malhash location argument
+    //rover break down msh bt7sal fe facility
+    //fire and oxygen leak happen in a facility
+    //el medical treatment ta2reban nour 3amlalha facility fa sebtaha zy ma heya 
+    protected String location; //where an emergency happens
     //responders can be humans or robots
     protected boolean status; // bta3t el emergency false:unresolved,true:resolved
     protected String failureReason=null;//failure reason if emergency is unresolved, null otherwise
@@ -26,6 +32,16 @@ abstract public class Emergency{
             return;
         }
         this.location=location;
+        this.status=false; //initially unresolved
+        this.elapsedTime=0;
+        this.emergencyHandleTime=emergencyHandleTime;
+        
+    }
+    public Emergency(int emergencyHandleTime){
+        if(emergencyHandleTime<=0){
+            System.out.println("Invalid emergency handle time");
+            return;
+        }
         this.status=false; //initially unresolved
         this.elapsedTime=0;
         this.emergencyHandleTime=emergencyHandleTime;

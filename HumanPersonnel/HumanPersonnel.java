@@ -1,4 +1,4 @@
-package HumanPersonnel;
+package humanpersonnel;
 import java.util.List;
 
 public abstract class HumanPersonnel {
@@ -54,12 +54,7 @@ public abstract class HumanPersonnel {
         return healthStatus;
     }
 
-    public void setHealthStatus(double healthStatus) {
-        if(healthStatus<0.0 || healthStatus>100.0)
-            System.out.println("Health Status cannot be negative or greater than 100");
-        else
-        this.healthStatus = healthStatus;
-    }
+  
 
     public String getCurrentLocation() {
         return currentLocation;
@@ -84,17 +79,6 @@ public abstract class HumanPersonnel {
         return fatigueLevel;
     }
 
-    public void setFatigueLevel(double fatigueLevel) {
-        if(fatigueLevel<0.0 || fatigueLevel>100.0)
-        {
-            System.out.println("Fatigue level cannot be negative or greater than 100");
-            fatigueLevel=0.0;
-
-
-        }
-      else 
-        this.fatigueLevel=fatigueLevel; //8yrt hna kanet btreturn double 5aletaha void
-    }
 
     public boolean isAvailable() {
         return available;

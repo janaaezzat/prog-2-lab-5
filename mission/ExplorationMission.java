@@ -1,8 +1,8 @@
 package mission;
-import HumanPersonnel.HumanPersonnel;
-import HumanPersonnel.Scientist;
-import RoboticUnits.ExplorationRover;
-import RoboticUnits.RoboticUnits;
+import humanpersonnel.HumanPersonnel;
+import humanpersonnel.Scientist;
+import roboticunits.ExplorationRover;
+import roboticunits.RoboticUnits;
 
 public class ExplorationMission extends Mission {
     //4elt el person and robot lists 34an kanet bt3ml shadowing ll main mission class lists homa aleady byt3amal fehom

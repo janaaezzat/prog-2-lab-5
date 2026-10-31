@@ -1,4 +1,4 @@
-package HumanPersonnel;
+package humanpersonnel;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,9 +1,9 @@
 package mission;
 
-import HumanPersonnel.HumanPersonnel;
-import HumanPersonnel.MedicalOfficer;
-import RoboticUnits.RoboticUnits;
-import RoboticUnits.Drone;
+import humanpersonnel.HumanPersonnel;
+import humanpersonnel.MedicalOfficer;
+import roboticunits.RoboticUnits;
+import roboticunits.Drone;
 
 public class RescueMission extends Mission {
     private String communicationStationLocation;

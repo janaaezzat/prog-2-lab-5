@@ -1,8 +1,8 @@
-package Emergencies;
-import Facilities.Facilities;
-import HumanPersonnel.HumanPersonnel;
-import HumanPersonnel.MedicalOfficer;
-import RoboticUnits.RoboticUnits;
+package emergencies;
+import facilities.Facilities;
+import humanpersonnel.HumanPersonnel;
+import humanpersonnel.MedicalOfficer;
+import roboticunits.RoboticUnits;
 import java.util.List;
 import java.util.ArrayList;
 

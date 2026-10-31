@@ -1,6 +1,6 @@
 package mission;
-import HumanPersonnel.HumanPersonnel;
-import RoboticUnits.RoboticUnits;
+import humanpersonnel.HumanPersonnel;
+import roboticunits.RoboticUnits;
 
 import java.util.List;
 import java.util.Map;

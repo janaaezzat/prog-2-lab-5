@@ -1,12 +1,11 @@
-package Emergencies;
-import Facilities.*;
-import HumanPersonnel.*;
-import RoboticUnits.*;
+package emergencies;
+import humanpersonnel.*;
+import roboticunits.*;
 import java.util.List;
 import java.util.ArrayList;
 import mission.ExplorationMission;
 import mission.MissionStatus;
-// na2es repair operation w el required repair soresources
+// na2es repair operation w el required repair resources
 
 public class RoverBreakDown extends Emergency {
 
@@ -58,7 +57,7 @@ public void handledSuccessfully() {
 
  private void applyBreakdown() {
     //totally damaged
-  rover.setDamageStatus(100.0);
+    rover.setDamageStatus(100.0);
     rover.setAvailable(false);
     rover.setCurrentLocation(location);
      // Mark the mission as failed due to rover breakdown
