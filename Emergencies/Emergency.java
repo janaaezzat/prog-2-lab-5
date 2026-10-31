@@ -1,17 +1,18 @@
-package emergencies;
-import facilities.Facilities;
-import humanpersonnel.HumanPersonnel;
-import roboticunits.RoboticUnits;
+package Emergencies;
+import Facilities.Facilities;
+import HumanPersonnel.HumanPersonnel;
+import RoboticUnits.RoboticUnits;
 import java.util.List;
-import java.util.ArrayList;
+import java.util.ArrayList; 
 
 abstract public class Emergency{
     protected String location; //either a facility or martian surface
+    //makan 7doos el emergency
     //responders can be humans or robots
-    protected boolean status; //false:unresolved,true:resolved
-    protected String failureReason=null;
+    protected boolean status; // bta3t el emergency false:unresolved,true:resolved
+    protected String failureReason=null;//failure reason if emergency is unresolved, null otherwise
     protected int emergencyHandleTime;
-    protected int elapsedTime;
+    protected int elapsedTime;//time ely 3ada since emergency was reported, colony will advance time by calling advanceTime function
     
 
     public Emergency(String location, int emergencyHandleTime){
@@ -46,7 +47,7 @@ abstract public class Emergency{
     public String getFailureReason(){
         return failureReason;
     }
-
+    // check fi responders monzbeen wla la2
     public abstract boolean checkResponders(List<HumanPersonnel>humans,List<RoboticUnits>robots); //list of all colony agents is passed to this function
     public abstract void cantHandleEmergency(); //colony calls it when requirments are not met
     public abstract void handledSuccessfully();//colony calls it when requirments are met 

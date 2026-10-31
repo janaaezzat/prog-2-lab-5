@@ -1,4 +1,4 @@
-package humanpersonnel;
+package HumanPersonnel;
 import java.util.List;
 
 public abstract class HumanPersonnel {
@@ -128,11 +128,27 @@ public abstract class HumanPersonnel {
         this.healthStatus = Math.max(0.0, this.healthStatus - amount);
         }
     }
+
+    public void increaseHealth(double amount) {
+    if (amount <= 0) {
+        System.out.println("Health increase amount cannot be negative or zero.");
+        return;
+    }
+    this.healthStatus = Math.min(100.0, this.healthStatus + amount);
+    }
+
+   public void decreaseFatigue(double amount) {
+    if (amount <= 0) {
+        System.out.println("Fatigue decrease amount cannot be negative or zero.");
+        return;
+    }
+    this.fatigueLevel = Math.max(0.0, this.fatigueLevel - amount);
+  } 
     public boolean canHandleOxygenLeak(){
     return false; //method is overridden in engineer subclass to return true after checking availabilty and health
      }
     public boolean canHandleFireEmergency(){
-    return false; 
+    return false; // ay 7ad me4 3amel override lel method deh hy return false automatically y3ny ma3ndoosh skill ely y5llih y3ml fire emergency
      }
     public boolean canProvideMedicalAssistance(){
     return false;

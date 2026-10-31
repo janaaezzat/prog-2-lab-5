@@ -1,13 +1,13 @@
-package emergencies;
-import facilities.*;
-import humanpersonnel.*;
-import roboticunits.*;
+package Emergencies;
+import Facilities.*;
+import HumanPersonnel.*;
+import RoboticUnits.*;
 import java.util.List;
 import java.util.ArrayList;
 
 
 public class Fire extends Emergency{
-    Laboratories lab;
+    Laboratories lab; //the lab where the fire emergency occurred
     FireResponse[] fireResponders=new FireResponse[3]; //3 fire responder personnel will be needed
     RoboticUnits roboticResponder; //1 repair robot will be needed
     MedicalOfficer medicalAssistance; //1 medical officer will be needed fl a5er to treat lab occupants
@@ -21,7 +21,8 @@ public class Fire extends Emergency{
             this.lab=lab;
             lab.consumeOxygen(5); 
         }
-        lab.setOperationalStatus(false); //lab becomes damaged
+        lab.setOperationalStatus(false); //lab becomes damaged unavailable for use until repaired
+        
         for(HumanPersonnel human:lab.getPersonnelList()){ //occupants of lab will need medical assistance
             human.increaseFatigue(3);
             human.decreaseHealth(3);
@@ -54,17 +55,17 @@ public class Fire extends Emergency{
             break;
             }
             }
-        if (foundCount == 3 && roboticResponder != null) {
+        if (foundCount == 3 && roboticResponder != null) { // at least 3 fire responders and 1 repair robot are available to handle the emergency
             for (int i = 0; i < 3; i++) {
                 fireResponders[i].setAvailable(false);
                 fireResponders[i].setCurrentLocation(location);
             }
-            roboticResponder.setAvailable(false);
-            roboticResponder.setCurrentLocation(location);
+            roboticResponder.setAvailable(false);//set the repair robot to unavailable and move it to the emergency location
+            roboticResponder.setCurrentLocation(location);//n3del makanhom llmakan ely 7asal feh el emergency
             return true;
         }
         else{
-            return false;
+            return false;//not enough responders available to handle the emergency
         }
     }
     @Override

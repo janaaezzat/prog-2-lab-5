@@ -153,4 +153,11 @@ private void releaseAgents() {//handles enaha ba3d ma el mission t5ls aw failed 
         r.setAvailable(true);
     }
 }
+// deh method used in emergency bta3tb rover breakdown
+// Checks whether a specific robot is assigned to this mission
+// This is needed to make sure a rover breakdown belongs to the Exploration Mission
+// that the rover was actually participating in
+public boolean hasRobot(RoboticUnits robot) {
+    return assignedRobots.contains(robot);
+}
 }

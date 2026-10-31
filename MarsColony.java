@@ -1,12 +1,12 @@
 import java.util.ArrayList;
 import java.util.List;
-import facilities.Facilities;
-import humanpersonnel.HumanPersonnel; 
-import roboticunits.RoboticUnits;
+import Facilities.Facilities;
+import HumanPersonnel.HumanPersonnel;
+import RoboticUnits.RoboticUnits;
 import java.util.Map;
 import mission.Mission;
 import mission.MissionStatus;
-import emergencies.Emergency;
+import Emergencies.Emergency;
 
 public class MarsColony {
     // field mn noo3 Mission (el data type) ya3ni el variable da hayeshawer 3ala object men Mission aw subclass menha
