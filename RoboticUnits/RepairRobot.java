@@ -2,6 +2,7 @@ package roboticunits;
 
 import java.util.ArrayList;
 import java.util.List;
+import enviroment.Enviroment;
 
 public class RepairRobot extends RoboticUnits{
     public RepairRobot(String ID, String currentLocation, int battery, double damageStatus,List<String> initialCapabilities){
@@ -22,4 +23,9 @@ public class RepairRobot extends RoboticUnits{
     }
 
    //4elt canPerform 5ales 34an 5alas main class does everything
+
+    @Override
+    public boolean canOperate(Enviroment Enviroment) {
+        return true;
+    }
 }
