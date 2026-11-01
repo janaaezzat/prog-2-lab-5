@@ -2,6 +2,7 @@ package mission;
 
 import humanpersonnel.HumanPersonnel;
 import facilities.Laboratories;
+import enviroment.Enviroment;
 
 public class ResearchMission extends Mission {
     private Laboratories laboratory;
@@ -47,6 +48,9 @@ public class ResearchMission extends Mission {
     researchCompleted = true;
     System.out.println("Research mission completed successfully at " + laboratory.getLocation() + ".");
     return true;
+    }
+    public boolean isEnvironment(Enviroment Enviroment) {
+        return true;
     }
     
     
