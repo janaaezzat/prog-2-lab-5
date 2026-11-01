@@ -222,6 +222,11 @@ public void reportEmergency(Emergency emergency){
             emergency.advanceTime(emergency.getEmergencyHandleTime());//handling each emergency type should advance simulation by its emergencyHandleTime attribute
             emergency.handledSuccessfully(); 
         }
+    // Clear the active mission if it was failed or completed
+    if (activeMission != null && (activeMission.getStatus() == MissionStatus.FAILED || activeMission.getStatus() == MissionStatus.COMPLETED)) {
+    System.out.println("Active mission " + activeMission.getMissionId() + " is no longer active.");
+    activeMission = null;
+}
 } 
 
   public void colonyStatusReport(){

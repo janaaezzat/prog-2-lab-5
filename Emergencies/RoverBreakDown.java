@@ -4,13 +4,14 @@ import roboticunits.*;
 import java.util.List;
 import mission.ExplorationMission;
 import mission.MissionStatus;
-// na2es repair operation w el required repair resources
+import mission.RepairMission;
 
 public class RoverBreakDown extends Emergency {
 
     private ExplorationRover rover; // The rover that has broken down
     private ExplorationMission mission;// The exploration mission that the rover is part of
-    
+    private RepairMission repairMission; //Creating the repair mission does not start it automatically
+
     public RoverBreakDown(String location,ExplorationRover rover,ExplorationMission mission,int emergencyHandleTime) {
 
         super(location, emergencyHandleTime);
@@ -64,7 +65,12 @@ public void handledSuccessfully() {
 
     // Set the rover's status to unavailable again because mission failure will release the rover and all agents assigned to the mission (still lesa bayez)
     rover.setAvailable(false);
+    repairMission = new RepairMission("Repair-" + rover.getID(),2,rover,5, 10, 0, 0, 0, 2);
   }
+  public RepairMission getRepairMission() {
+        return repairMission;
+    }
+
 
 }
     
