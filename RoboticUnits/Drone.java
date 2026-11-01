@@ -2,11 +2,11 @@ package roboticunits;
 
 import java.util.ArrayList;
 import java.util.List;
+import enviroment.Enviroment;
 
 public class Drone extends RoboticUnits{
     //4elt flyRange me4 maktooba f 7eta
     private double flyRange;
-    private boolean controlled;
 
     //zawedt capabilities brdo mission will use drones in rescue and anything that needs communication
     public Drone(String ID, String currentLocation, int battery, double damageStatus, List<String> capabilities, double flyRange) {
@@ -23,7 +23,7 @@ public class Drone extends RoboticUnits{
             System.out.println("Fly range cannot be negative");
         else
             this.flyRange = flyRange;
-        this.controlled=true;
+
 
     }
 
@@ -41,16 +41,15 @@ public class Drone extends RoboticUnits{
         else
             this.flyRange = flyRange;
     }
-    public boolean getControlled(){
-        return this.controlled;
-    }
-    public void setControlled(boolean controlled){
-        if(getFlyRange()>50){
 
-            System.out.println("Drone [" + getID() + "] operation failed. Reason: Remote drones cannot be controlled during communication disruption");
 
+    @Override
+    public boolean canOperate(Enviroment Enviroment) {
+        if(Enviroment.getCurrentCond()!= null && Enviroment.getCurrentCond().equals(enviroment.Enviroment.commDisruption)){
+
+            System.out.println("Drone " + getID()+ " cannot be controlled due to communication disruption.");
+            return false;
         }
-
+        return true;
     }
-
 }
