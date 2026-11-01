@@ -1,4 +1,5 @@
 package mission;
+import enviroment.Enviroment;
 import humanpersonnel.HumanPersonnel;
 import roboticunits.RoboticUnits;
 
@@ -20,6 +21,16 @@ public class ExplorationMission extends Mission {
         addResourceRequirement("Oxygen", oxygenNeeded);
     }
      // 4elt mn hena el instance of 3la asas enohom makano4 3ayzenha fl pdf
+
+    @Override
+    public boolean isEnvironment(Enviroment Enviroment) {
+        if(Enviroment.getCurrentCond()!= null && Enviroment.getCurrentCond().equals(enviroment.Enviroment.dustStorm)){
+            System.out.println("Exploration missions cannot start because of a dust storm.");
+            return false;
+        }
+        return true;
+    }
+
     @Override
     public boolean checkRequirements() {
         boolean hasScientistSkill = false;
