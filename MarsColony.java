@@ -7,14 +7,14 @@ import java.util.Map;
 import mission.Mission;
 import mission.MissionStatus;
 import emergencies.Emergency;
-import Enviroment.Enviroment;
+import enviroment.Enviroment;
 
 public class MarsColony {
     // field mn noo3 Mission (el data type) ya3ni el variable da hayeshawer 3ala object men Mission aw subclass menha
     private Mission activeMission;// variable hy4eel 2sm el mission ely 4a8ala now , lw no active missions hy4awer 3ala null
     private List<Facilities> facilities;//hatlef 3la facilities t3raf homa meen 34an later hatnady mnhom for resources
     private List<HumanPersonnel>humans;
-    private List<RoboticUnits>robots;
+    private List<RoboticUnits> robots;
     private Enviroment enviroment; //new Because currentCond is an instance variable in Enviroment, so each colony needs an environment object to remember its current conditions.
 
     public MarsColony() {
@@ -77,10 +77,7 @@ public class MarsColony {
         return; // maynf34 aktar mn mission active 7ata me4 hkmel ba2y checking requirments
     }
     //new
-    if (!enviroment.startmission(mission)) {
-        mission.failMission("Mission cannot start under current environmental conditions.");
-        return;
-    }
+
 
     if (!mission.checkRequirements()) {
         mission.failMission("Mission requirements for Personnel and/or Robots are not satisfied");
@@ -248,6 +245,27 @@ public void reportEmergency(Emergency emergency){
         
         }
         }
+    public boolean submitMission(Mission mission, List<RoboticUnits> assignedRobots) {
+        // 1. Check if the mission itself is allowed by the environment
+        if (!mission.isEnvironment(enviroment)) {
+            mission.setStatus(MissionStatus.FAILED);
+            return false;
+        }
+
+        // 2. Check if any assigned robot is crippled by the environment
+        for (RoboticUnits robot : assignedRobots) {
+            if (!robot.canOperate(enviroment)) {
+                System.out.println("Mission failed: Assigned unit " + robot.getClass().getSimpleName() + " is incompatible with current environment.");
+                mission.setStatus(MissionStatus.FAILED);
+                return false;
+            }
+        }
+
+        // If all checks pass, proceed with normal assignment
+        this.activeMission = mission;
+        mission.setStatus(MissionStatus.ASSIGNED);
+        return true;
+    }
 
 
 }
