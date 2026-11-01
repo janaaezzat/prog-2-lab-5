@@ -20,6 +20,8 @@ public abstract class Mission {
     protected List<RoboticUnits> assignedRobots;//el robots participated in mission
 
     protected Map<String, Integer> requiredResources; //deh keda 34an ex "Fuel" -> 50, "Battery" -> 10 fa ye7ot e7tyagat kol mission w tet2ara ba3dein
+    private String result = "";//34an ne7ot feha eh el 7asal for each mission
+
 
  public Mission(String missionId, int duration, String targetLocation) {
         this.missionId = missionId;
@@ -53,7 +55,15 @@ public MissionStatus getStatus() {
 
 public String getFailureReason() {
     return failureReason;
-} 
+}
+//new getter and setter for new attribute
+public String getResult() {
+    return result;
+}
+
+protected void setResult(String result) {
+    this.result = result;
+}
 
 public void addPersonnel(HumanPersonnel person) {//deh el 4elt 34anha el private list
     assignedPersonnel.add(person);
@@ -108,11 +118,9 @@ public void advanceTime() {
 
         elapsedTime++;// zawed one unit
 
-        if (elapsedTime >= duration) {
-            completeMission();
-        }
+        //8ayart deh 34an chat said en keda a5er time unit el ta8yeer me4 byt7asab fehok
         for (HumanPersonnel p : assignedPersonnel) {
-             if (!p.isAvailable()) { // If they are working on a mission
+            if (!p.isAvailable()) { // If they are working on a mission
                 p.increaseFatigue(2.0); // Fatigue ticks up every time unit
             }
         }
@@ -122,8 +130,21 @@ public void advanceTime() {
                 r.drainBattery(5); // Battery drains every time unit
             }
         }
+        if (elapsedTime >= duration) {
+             boolean success = executeMission();
+            if (success) { //hena 8ayrna 4owaya fl advance time 34an zawedna step execution
+                //execution byb2a abl el complete aw el fail
+                completeMission();
+            }
+            else {
+                failMission("Mission execution failed.");
+            }
+        }
+        
     }
  }
+//new
+protected abstract boolean executeMission();//each subclass hay implement deh ba3d ma duration yekoon 5allas 5alas 34an lw failed maykon4 3amal 7aga
 
 //keda complete aw fail el mission w release el personnel w el robots 34an yest5dmo fe missions tanya
 public void completeMission() {

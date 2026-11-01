@@ -1,13 +1,14 @@
 package mission;
 import humanpersonnel.HumanPersonnel;
-import humanpersonnel.Scientist;
-import roboticunits.ExplorationRover;
 import roboticunits.RoboticUnits;
 
 public class ExplorationMission extends Mission {
     //4elt el person and robot lists 34an kanet bt3ml shadowing ll main mission class lists homa aleady byt3amal fehom
     //list of assigned w keda fa lma check req kanet ht2ra kanet htb2a b null 34an bt2ra of main ely kano shadowed
     
+    //zawedt dol for execution
+    private boolean surfaceExplored = false;
+
     public ExplorationMission(String missionId, int duration, int fuelNeeded, int batteryNeeded, int foodNeeded, int waterNeeded, int oxygenNeeded) {
         super(missionId, duration, "Surface"); 
 
@@ -18,26 +19,40 @@ public class ExplorationMission extends Mission {
         addResourceRequirement("Water", waterNeeded);   
         addResourceRequirement("Oxygen", oxygenNeeded);
     }
-
+     // 4elt mn hena el instance of 3la asas enohom makano4 3ayzenha fl pdf
     @Override
     public boolean checkRequirements() {
-        boolean hasScientist = false;
+        boolean hasScientistSkill = false;
         for (HumanPersonnel p : assignedPersonnel) {
-            if (p instanceof Scientist && p.canPerform("Research")) {
-                hasScientist = true;
+            if (p.canPerform("Research")) {
+                hasScientistSkill = true;
                 break;
             }
         }
 
-        boolean hasRover = false;
+        boolean hasSuitableVehicle = false;
         for (RoboticUnits r : assignedRobots) {
-            if (r instanceof ExplorationRover && r.canPerform("Exploration")) {
-                hasRover = true;
+            if ( r.canPerform("Exploration")) {
+                hasSuitableVehicle = true;
                 break;
             }
         }
 
-        return hasScientist && hasRover;
+        return hasScientistSkill && hasSuitableVehicle;
     }
+    //new getters
+    public boolean isSurfaceExplored() {
+    return surfaceExplored;
+    }
+
+    @Override
+    protected boolean executeMission() {
+    surfaceExplored = true;
+    System.out.println("Exploration of the Surface completed successfully.");
+
+    return true;
+}
+
+
 }
 

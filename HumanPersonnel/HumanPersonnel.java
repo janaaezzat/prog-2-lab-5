@@ -54,6 +54,9 @@ public abstract class HumanPersonnel {
   
 
     public String getCurrentLocation() {
+         if (currentLocation == null || currentLocation.isEmpty()) {
+        throw new IllegalStateException("Person's location is invalid.");
+        }
         return currentLocation;
     }
 

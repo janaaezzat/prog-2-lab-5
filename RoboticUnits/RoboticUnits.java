@@ -102,6 +102,17 @@ public abstract class RoboticUnits {
         this.battery = Math.max(0, this.battery - amount);
         }
     }
+    // used in repair mission with validations
+    public void rechargeBattery(int amount) {
+    if (amount <= 0) {
+        System.out.println("Invalid recharge amount.");
+        return;
+    }
+    battery += amount;
+    if (battery > 100) {
+        battery = 100;
+    }
+}
 
     // Increase damage status (e.g., during rough terrain or dust storms)(lw rowan won't use f environment yeb2a ne4lha)
     public void increaseDamage(double amount) {
