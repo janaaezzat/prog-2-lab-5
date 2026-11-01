@@ -2,6 +2,7 @@
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 import java.util.Arrays;
 
+import facilities.Facilities;
 import facilities.Habitat;
 import humanpersonnel.Engineer;
 import humanpersonnel.Scientist;
@@ -12,7 +13,7 @@ import mission.ExplorationMission;
 
 import emergencies.OxygenLeak;
 
-import Enviroment.Enviroment;
+import enviroment.Enviroment;
 
 public class MarsOp3 {
 
@@ -254,41 +255,35 @@ public class MarsOp3 {
         // SCENARIO 5: ENVIRONMENTAL EFFECT
         // ==========================================
 
-        System.out.println("\n\n========================================");
+        System.out.println("========================================");
         System.out.println("SCENARIO 5: ENVIRONMENTAL EFFECT");
         System.out.println("========================================");
 
-        // Introduce a dust storm.
-        colony.setEnvironmentCondition(Enviroment.dustStorm);
+// 1. Set environment to Dust Storm
+        Enviroment environment=new Enviroment();
+        environment.setCurrentCond(Enviroment.dustStorm);
 
-        System.out.println("Current environment: "
-                + colony.getEnvironmentCondition());
+// 2. Create your exploration mission
+        ExplorationMission exp004 = new ExplorationMission("EXP-004", 3, 10, 10, 5, 5, 5);
 
-        ExplorationMission stormMission = new ExplorationMission(
-                "EXP-004",
-                2,
-                10,
-                10,
-                5,
-                5,
-                5
-        );
+        System.out.println("Attempting exploration during a dust storm...");
 
-        stormMission.addPersonnel(scientist);
-        stormMission.addRobot(rover);
+// 3. CHECK THE ENVIRONMENT FIRST!
+        if (!exp004.isEnvironment(environment) || !environment.startmission(exp004)) {
+            // If environment blocks it, fail the mission cleanly
+            exp004.failMission("Mission cannot start under current environmental conditions.");
+        } else {
+            exp004.startMission();
+        }
 
-        System.out.println("\nAttempting exploration during a dust storm...");
+// 4. Print status to verify it failed and is NOT active
+        System.out.println("Mission Status: " + exp004.getStatus());
+        System.out.println("Failure Reason: " + exp004.getFailureReason());
+        System.out.println("Is this mission active? " + (colony.getActiveMission() == exp004));
 
-        colony.submitMission(stormMission);
+// Reset environment back to normal for the rest of the simulation
+        environment.setCurrentCond(Enviroment.normal);
 
-        System.out.println("\nMission Status: " + stormMission.getStatus());
-        System.out.println("Failure Reason: " + stormMission.getFailureReason());
-
-        System.out.println("Is this mission active? "
-                + (colony.getActiveMission() == stormMission));
-
-        // Restore normal environmental conditions.
-        colony.setEnvironmentCondition(Enviroment.normal);
 
 
         // ==========================================
@@ -308,6 +303,6 @@ public class MarsOp3 {
 
     // Helper method to read the colony-wide fuel total.
     private static int HabitatFuelTotal() {
-        return facilities.Facilities.getFuelTotal();
+        return Facilities.getFuelTotal();
     }
 }
