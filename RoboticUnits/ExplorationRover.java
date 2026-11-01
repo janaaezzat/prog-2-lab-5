@@ -2,6 +2,7 @@ package roboticunits;
 
 import java.util.ArrayList;
 import java.util.List;
+import enviroment.Enviroment;
 
 public class ExplorationRover extends RoboticUnits{
 
@@ -18,9 +19,16 @@ public class ExplorationRover extends RoboticUnits{
 
     @Override
     public void task() {
-        System.out.println("Exploration Rover "+getID()+" travels across the Marine surface and carries equipment ");
+        System.out.println("Exploration Rover travels across the Marine surface and carries equipment ");
 
     }
 
    //4elt canPerform 5ales 34an 5alas main class does everything
+    public boolean canOperate(Enviroment Enviroment){
+        if(Enviroment.getCurrentCond()!= null && Enviroment.getCurrentCond().equals(enviroment.Enviroment.dustStorm)){
+            System.out.println("Rover cannot navigate surface during a dust storm.");
+            return false;
+        }
+        return true;
+    }
 }
