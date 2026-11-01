@@ -41,7 +41,7 @@ public class Drone extends RoboticUnits{
         else
             this.flyRange = flyRange;
     }
-    public boolean getControlled(boolean controlled){
+    public boolean getControlled(){
         return this.controlled;
     }
     public void setControlled(boolean controlled){

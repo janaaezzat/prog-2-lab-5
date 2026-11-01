@@ -7,6 +7,7 @@ import java.util.Map;
 import mission.Mission;
 import mission.MissionStatus;
 import emergencies.Emergency;
+import Enviroment.Enviroment;
 
 public class MarsColony {
     // field mn noo3 Mission (el data type) ya3ni el variable da hayeshawer 3ala object men Mission aw subclass menha
@@ -14,11 +15,14 @@ public class MarsColony {
     private List<Facilities> facilities;//hatlef 3la facilities t3raf homa meen 34an later hatnady mnhom for resources
     private List<HumanPersonnel>humans;
     private List<RoboticUnits>robots;
+    private Enviroment enviroment; //new Because currentCond is an instance variable in Enviroment, so each colony needs an environment object to remember its current conditions.
+
     public MarsColony() {
         this.facilities = new ArrayList<>();
         this.humans=new ArrayList<>();
         this.robots=new ArrayList<>();
         this.activeMission = null;
+        this.enviroment = new Enviroment();//new 
     }
 
     //these 3 methods will be used by client class(client should first create an object then pass it to these 
@@ -55,6 +59,14 @@ public class MarsColony {
             }
         }
     }
+    //setters and getters for environment condition
+    public void setEnvironmentCondition(String condition) {
+        enviroment.setCurrentCond(condition);
+    }
+
+    public String getEnvironmentCondition() {
+        return enviroment.getCurrentCond();
+    }
 
 
     //el method deh hast2bal mission gedida, w tet2aked en momken tebda2 wala la2
@@ -63,6 +75,11 @@ public class MarsColony {
     if (activeMission != null) {
         mission.failMission("Another mission is already active");
         return; // maynf34 aktar mn mission active 7ata me4 hkmel ba2y checking requirments
+    }
+    //new
+    if (!enviroment.startmission(mission)) {
+        mission.failMission("Mission cannot start under current environmental conditions.");
+        return;
     }
 
     if (!mission.checkRequirements()) {
@@ -93,13 +110,16 @@ public void advanceTime(int units) {
     for (int i = 0; i < units; i++) {
 
         if (activeMission != null) {
-           //bet2ool lel mission el shaghala en wa2t wa7ed (unit y3ny) 3adda
-            activeMission.advanceTime();
+           //bet2ool lel mission el shaghala en wa2t wa7ed (unit y3ny) 3adda (new) checks for environment kol 4owaya
+        if (!enviroment.canContinueMission(activeMission)) {
+            activeMission.failMission("Mission interrupted due to environmental conditions.");
+    }
+    else {
+        activeMission.advanceTime();
+    }
         }
 
-        if (activeMission != null &&
-            (activeMission.getStatus() == MissionStatus.COMPLETED ||
-             activeMission.getStatus() == MissionStatus.FAILED)) {
+        if (activeMission != null && (activeMission.getStatus() == MissionStatus.COMPLETED || activeMission.getStatus() == MissionStatus.FAILED)) {
              //Law el mission khalaset aw failed, ben5ally activeMission = null 3ashan el colony te2dar testa2bal mission gedeeda
             System.out.println("Mission " + activeMission.getMissionId() + " ended with status: " + activeMission.getStatus());
              activeMission = null;
@@ -140,7 +160,8 @@ public boolean consumeColonyResources(Map<String, Integer> requirements) {
         String resName = entry.getKey();//get key w get value dol taba3 el hashmap (let's learn about it ablaha b2a ma3l4)
         int needed = entry.getValue();
 
-        for (Facilities f : facilities) {//yebda2 yelef 3la el facilities w ya5od el 3ayzo mn el makan el feh 
+        for (Facilities f : facilities) {
+            //yebda2 yelef 3la el facilities w ya5od el 3ayzo mn el makan el feh 
             if (f.getOperationalStatus() && needed > 0) {
                 int taken = 0;
                 switch (resName) {
@@ -176,6 +197,10 @@ public boolean consumeColonyResources(Map<String, Integer> requirements) {
             }
             if (needed == 0) break;
         }
+        if (needed > 0) {
+                System.out.println("Failed to collect all required " + resName + ".");
+                return false;
+            }
     }
     return true;
 }
