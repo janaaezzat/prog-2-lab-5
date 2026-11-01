@@ -1,4 +1,5 @@
 package mission;
+import enviroment.Enviroment;
 import humanpersonnel.HumanPersonnel;
 import roboticunits.RoboticUnits;
 
@@ -6,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.ArrayList;
 import java.util.HashMap;
+
 
 public abstract class Mission {
     private String missionId; // nefr2 bein el missions
@@ -35,7 +37,7 @@ public abstract class Mission {
         this.assignedRobots = new ArrayList<>();
         this.requiredResources = new HashMap<>();
     }
-
+public abstract boolean isEnvironment(Enviroment enviroment);
 public String getMissionId() {
     return missionId;
    }
@@ -181,4 +183,8 @@ private void releaseAgents() {//handles enaha ba3d ma el mission t5ls aw failed 
 public boolean hasRobot(RoboticUnits robot) {
     return assignedRobots.contains(robot);
 }
+
+    public void setStatus(MissionStatus status) {
+        this.status = status;
+    }
 }
