@@ -2,6 +2,7 @@ package roboticunits;
 
 import java.util.ArrayList;
 import java.util.List;
+import enviroment.Enviroment;
 
 public abstract class RoboticUnits {
     private int battery;
@@ -120,6 +121,7 @@ public abstract class RoboticUnits {
         this.damageStatus = Math.min(100.0, this.damageStatus + amount);
         }
     }
+    public abstract boolean canOperate(Enviroment Enviroment);
 
 }
 
