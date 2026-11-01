@@ -6,7 +6,7 @@ public abstract class HumanPersonnel {
     private  double healthStatus, fatigueLevel;
     private boolean available;
     protected List<String> skills;//zawedt deh 34an ye check skills 3nd kol mission
-    public HumanPersonnel(String name, String identificationNum, String currentLocation, List <String> skills, double healthStatus){
+    public HumanPersonnel(String name, String identificationNum, String currentLocation, List <String> skills){
         if(name==null|| name.isEmpty()) // badelt el tarteeb only 34an lw string bi null hydrb nullpointerexception lw 4af isEmpty el awal
             System.out.println("Invalid name");
         else
@@ -19,10 +19,7 @@ public abstract class HumanPersonnel {
             System.out.println("Invalid location");
         else
             this.currentLocation = currentLocation;
-        if(healthStatus<0.0 || healthStatus>100.0)
-            System.out.println("Health Status cannot be negative or greater than 100");
-        else
-            this.healthStatus = healthStatus;
+        this.healthStatus = 100; //yebda2 ye3ml wa7ed gdeed lang b 100 health w zero fatigue (ta7t 3enwan nour "enta betsta3bat?")
         this.skills=skills;
         this.fatigueLevel=0.0;
         this.available=true;
@@ -98,7 +95,7 @@ public abstract class HumanPersonnel {
 
     //increases fatigue level kol ma bnadvance time, ensuring it does not exceed 100
     public void increaseFatigue(double amount) {
-        if (amount < 0) {
+        if (amount <= 0) {
             System.out.println("Fatigue increase amount cannot be negative.");
             return;
         }
@@ -108,9 +105,11 @@ public abstract class HumanPersonnel {
 
     // Decrease health (e.g., due to an emergency or harsh environment) lw hnst5dmha for env aw emergencies o.w ne4lha
     public void decreaseHealth(double amount) {
-    if (amount > 0) {
-        this.healthStatus = Math.max(0.0, this.healthStatus - amount);
-        }
+    if (amount <= 0) {
+        System.out.println("Health decrease amount cannot be negative or zero.");
+        return;
+    }
+    this.healthStatus = Math.max(0.0, this.healthStatus - amount);
     }
 
     public void increaseHealth(double amount) {

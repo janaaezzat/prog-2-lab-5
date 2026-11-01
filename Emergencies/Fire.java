@@ -3,8 +3,6 @@ import facilities.*;
 import humanpersonnel.*;
 import roboticunits.*;
 import java.util.List;
-import java.util.ArrayList;
-
 
 public class Fire extends Emergency{
     Laboratories lab; //the lab where the fire emergency occurred

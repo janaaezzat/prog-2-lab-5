@@ -4,7 +4,7 @@ import java.util.List;
 
 public class FireResponse extends HumanPersonnel{
     public FireResponse(String name, String identificationNum, String currentLocation, List <String> skills, double healthStatus){
-        super(name, identificationNum, currentLocation, skills, healthStatus);
+        super(name, identificationNum, currentLocation, skills);
         if (this.skills == null) {
             this.skills = new ArrayList<>();
         }
@@ -16,6 +16,11 @@ public class FireResponse extends HumanPersonnel{
     public boolean canHandleFireEmergency(){
     return canPerform("Fire Response"); 
    }
+
+    @Override
+    public void duty() {
+        System.out.println("Fire Responder "+getName());
+    }
   
 
 }

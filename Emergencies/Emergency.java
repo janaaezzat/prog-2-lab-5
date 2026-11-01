@@ -1,12 +1,10 @@
 package emergencies;
-import Facilities.Facilities;
-import HumanPersonnel.HumanPersonnel;
-import RoboticUnits.RoboticUnits;
-import java.util.List;
-import java.util.ArrayList; 
+import humanpersonnel.HumanPersonnel;
+import roboticunits.RoboticUnits;
+import java.util.List; 
 
 abstract public class Emergency{
-    //emergency happens either in a facility or in martian surface
+    //emergency happens either in a facility or on martian surface
     //so emergency location attribute will either be a facility location or a martian surface location 
     //the 2 subclasses fire and oxygen leak occur in a facility,so they don't need to take location as an argument in their constructor,ana 7a assign el emergency location bta3hom bl facility location
     //that's why i used overloading 3shn a3ml 2 constructors lel emergency class,wa7da lel subclasses el leha location argument w wa7da lel subclasses el malhash location argument

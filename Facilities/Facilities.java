@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 public class Facilities {
     protected String location;
-    protected int capacity; //number of units of el 7aga el stored
+    protected int capacity; //number of units of el 7aga el stored (can't add more than el cap deh w checked for each resource)
     protected boolean operationalStatus; //true:sha8ala, false:msh sha8ala
     protected int oxygen; //all resources measured as a number of units
     protected int water;
@@ -47,7 +47,7 @@ public class Facilities {
         this.battery=battery;
         this.medicalSupplies=medicalSupplies;
         this.spareParts=spareParts;
-        if(operationalStatus==true){  //resources in an unavailable facility do not count
+        if(operationalStatus==true){  // resources in an unavailable facility do not count
         oxygenTotal+=oxygen;
         waterTotal+=water;
         foodTotal+=food;

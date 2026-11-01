@@ -1,6 +1,6 @@
 package mission;
 
-import humanpersonnel.Engineer;
+import humanpersonnel.*;
 import humanpersonnel.HumanPersonnel;
 import roboticunits.RepairRobot;
 import roboticunits.RoboticUnits;

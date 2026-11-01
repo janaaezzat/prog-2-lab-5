@@ -21,7 +21,8 @@ public class MarsColony {
         this.activeMission = null;
     }
 
-    //these 3 methods will be used by client class(client should first create an object then pass it to these methods)to add facility/human/robot to the colony
+    //these 3 methods will be used by client class(client should first create an object then pass it to these 
+    // methods)to add facility/human/robot to the colony
     public void addFacility(Facilities facility) {
         if (facility != null) {
             facilities.add(facility);
@@ -37,7 +38,8 @@ public class MarsColony {
             robots.add(robot);
         }
     }
-    //methods to assign a list of humans/robots to a facility->el client beyet3amel ma3 el colony class fa 7aycall el method da wel colony heya el 7atet3amel w t call addPersonnel aw addRoboticUnit el mawgoodeen f class el facilities
+    //methods to assign a list of humans/robots to a facility->el client beyet3amel ma3 el colony class fa 7aycall el method da wel 
+    // colony heya el 7atet3amel w t call addPersonnel aw addRoboticUnit el mawgoodeen f class el facilities
     public void assignHumansToFacility(Facilities facility, List<HumanPersonnel> humanList) {
             //client class passes a list of type human personnel and passes a facility object to this method 
              if (facility != null && humanList != null) {

@@ -5,7 +5,7 @@ import java.util.List;
 
 public class Scientist extends HumanPersonnel{
     public Scientist(String name, String identificationNum, String currentLocation, List<String> skills, double healthStatus){
-     super(name, identificationNum, currentLocation, skills,healthStatus);
+     super(name, identificationNum, currentLocation, skills);
 
 
      //zawedtaha in all persons 34an skill list

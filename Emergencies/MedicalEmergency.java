@@ -4,7 +4,6 @@ import humanpersonnel.HumanPersonnel;
 import humanpersonnel.MedicalOfficer;
 import roboticunits.RoboticUnits;
 import java.util.List;
-import java.util.ArrayList;
 
 
 public class MedicalEmergency extends Emergency{
