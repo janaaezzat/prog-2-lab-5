@@ -2,6 +2,7 @@ package mission;
 
 import humanpersonnel.HumanPersonnel;
 import roboticunits.RoboticUnits;
+import enviroment.Enviroment;
 
 public class RescueMission extends Mission {
     private String communicationStationLocation;
@@ -65,5 +66,13 @@ public class RescueMission extends Mission {
         System.out.println("Health after treatment: " + rescuedPerson.getHealthStatus());
         return true;
     }
-    
+
+    @Override
+    public boolean isEnvironment(Enviroment Enviroment ) {
+        if(Enviroment.getCurrentCond()!= null && Enviroment.getCurrentCond().equals(enviroment.Enviroment.commDisruption)){
+            System.out.println("Rescue missions cannot start because of a communication disruption.");
+            return false;
+        }
+        return true;
+    }
 }
