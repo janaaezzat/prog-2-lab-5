@@ -1,4 +1,4 @@
-package Enviroment;
+package enviroment;
 import mission.ExplorationMission;
 import mission.Mission;
 import roboticunits.RoboticUnits;
@@ -8,7 +8,7 @@ import mission.RescueMission;
 
 public class Enviroment {
     public static final String normal="Normal";
-    public static final String dustStorm=" Dust Storm";
+    public static final String dustStorm="Dust Storm";
     public static final String commDisruption="Communication Disruption";
     private String currentCond;
     public Enviroment(){
@@ -52,20 +52,20 @@ public class Enviroment {
     }
 
     public boolean canContinueMission(Mission mission) {
-    switch (currentCond) {
-        case dustStorm:
-            if (mission instanceof ExplorationMission) {
-                System.out.println("Exploration mission interrupted due to a dust storm.");
-                return false;
-            }
-            break;
+        switch (currentCond) {
+            case dustStorm:
+                if (mission instanceof ExplorationMission) {
+                    System.out.println("Exploration mission interrupted due to a dust storm.");
+                    return false;
+                }
+                break;
 
-        case commDisruption:
-            if (mission instanceof RescueMission) {
-                System.out.println("Rescue mission interrupted due to communication disruption.");
-                return false;
-            }
-            break;
+            case commDisruption:
+                if (mission instanceof RescueMission) {
+                    System.out.println("Rescue mission interrupted due to communication disruption.");
+                    return false;
+                }
+                break;
         }
 
         return true;
@@ -83,7 +83,6 @@ public class Enviroment {
             case commDisruption:
                 if(roboticUnits instanceof Drone drone){
                     if(drone.getFlyRange()>50){
-                        drone.setControlled(false);
                         return false;
                     }
                     else return true;
