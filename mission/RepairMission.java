@@ -1,8 +1,9 @@
 package mission;
 
-import humanpersonnel.*;
+import humanpersonnel.HumanPersonnel;
 import roboticunits.RoboticUnits;
 import facilities.Facilities;
+import enviroment.Enviroment;
 
 public class RepairMission extends Mission {
     private String repairLocation;
@@ -103,7 +104,9 @@ public class RepairMission extends Mission {
     return false;
 }
 
-
-
+    @Override
+    public boolean isEnvironment(Enviroment Enviroment) {
+        return true;
+    }
 }
     
