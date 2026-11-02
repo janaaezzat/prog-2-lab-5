@@ -157,7 +157,7 @@ The colony checks whether suitable responders are available. If the requirements
 
 - An affected habitat is identified.
 - Oxygen is deducted when the leak is detected.
-- Suitable personnel and a repair-capable robot are required.
+- One personnel of type engineer and one repair-capable robot are required.
 - If the leak is repaired, the initial oxygen deduction represents the total loss.
 - If the emergency remains unresolved, the same amount is deducted again.
 - Oxygen quantities must not become negative.
@@ -166,7 +166,7 @@ The colony checks whether suitable responders are available. If the requirements
 
 - The affected laboratory becomes unavailable.
 - Oxygen is consumed.
-- Fire-response personnel and a repair-capable robot are required.
+- Three Fire-response personnel and one repair-capable robot are required.
 - Medical assistance may be used to treat affected personnel.
 - The laboratory's operational state is updated after successful handling.
 
