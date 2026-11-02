@@ -37,6 +37,7 @@ Specialized personnel types include:
 - `FireResponse`
 
 Personnel have attributes such as health, fatigue, availability, location, and capabilities.
+Each has different set of skills that will be needed in missions and emergencies.
 
 ### Robotic Units
 
@@ -48,6 +49,7 @@ Specialized robotic units include:
 - `Drone`
 
 Robots have battery levels, damage status, availability, location, and capabilities.
+Each has different set of skills that will be needed in missions and emergencies.
 
 ### Facilities
 
@@ -99,12 +101,12 @@ The supported conditions include:
 
 Every mission follows a lifecycle represented by the `MissionStatus` enumeration.
 
-| State | Description |
-|---|---|
-| `ASSIGNED` | Mission has been created and is awaiting execution. |
-| `IN_PROGRESS` | Mission has passed its requirements and resource checks and has started. |
-| `COMPLETED` | Mission has finished successfully. |
-| `FAILED` | Mission has been rejected or has failed during execution. |
+|     State      |                          Description                                     |
+|----------------|--------------------------------------------------------------------------|
+| `ASSIGNED`     | Mission has been created and is awaiting execution.                      |
+| `IN_PROGRESS`  | Mission has passed its requirements and resource checks and has started. |
+| `COMPLETED`    | Mission has finished successfully.                                       |
+| `FAILED`       | Mission has been rejected or has failed during execution.                |
 
 ### Mission Execution Rules
 
@@ -144,6 +146,7 @@ The supported resource types include:
 4. Resources may be collected from multiple operational facilities.
 5. If any required resource is insufficient, the mission is rejected and no resources should be consumed.
 6. If all requirements are satisfied, the required quantities are deducted.
+7. If requirements are not met, resources are not deducted.
 
 This follows an all-or-nothing resource allocation approach.
 
@@ -237,26 +240,118 @@ The project includes the following UML diagrams:
 
 The diagrams represent the implemented Java structure and interactions.
 
-## 9. Compilation and Execution
 
-**To be finalized after the test runner is implemented and verified.**
+## 9. Demonstration Scenarios and Testing
 
-The main class is `MarsOp3`.
+The `MarsOp3` main class demonstrates the five required scenarios specified in the lab assignment. Each scenario creates the necessary objects, performs an operation, and displays the resulting mission, resource, personnel, or facility state.
 
-Final instructions will include:
-- Required Java version.
-- Project compilation instructions.
-- How to execute `MarsOp3`.
-- How to run the required demonstration scenarios.
+All five scenarios are executed sequentially using one colony instance and its facilities, personnel, and robotic units.
 
-## 10. Demonstration Scenarios
+### Scenario 1: Successful Exploration
 
-The main class will demonstrate the five scenarios required by the lab:
+**Setup:**
+- Create an operational habitat containing sufficient colony resources.
+- Create a scientist with Research capability.
+- Create an exploration rover with Exploration capability.
+- Assign the scientist and rover to an exploration mission.
 
-1. Successful Exploration
-2. Mission Rejection
-3. Resource Shortage
-4. Oxygen Leak Emergency
-5. Environmental Effect
+**Execution:**
+- Submit the exploration mission to the colony.
+- Advance simulation time until the mission duration is reached.
 
-The exact execution steps and expected results will be documented after the test scenarios are implemented and verified.
+**Expected Result:**
+- The mission starts successfully and reaches `COMPLETED`.
+- The surface exploration result becomes `true`.
+- The scientist and rover become available again.
+- The rover's battery decreases during mission execution.
+- The required mission resources are deducted from the colony.
+
+**Demonstrated Rules:** Mission requirements, capability-based assignment, resource consumption, mission execution, time advancement, and agent release.
+
+**Implementation Note:** The current implementation does not include a separate equipment-management system, so equipment validation is not demonstrated by this scenario.
+
+### Scenario 2: Mission Rejection
+
+**Setup:**
+- Create an exploration mission.
+- Assign an engineer who does not possess the required Research capability.
+- Assign an exploration rover.
+
+**Execution:**
+- Submit the mission to the colony.
+
+**Expected Result:**
+- The mission is immediately marked `FAILED`.
+- A failure reason is recorded because the assigned personnel do not satisfy the mission requirements.
+- The mission never becomes the colony's active mission.
+- The assigned agents remain available.
+
+**Demonstrated Rules:** Mission requirement validation, capability checking, immediate rejection, and failure-reason recording.
+
+### Scenario 3: Resource Shortage
+
+**Setup:**
+- Create an exploration mission requiring 5000 units of fuel.
+- The colony has only 190 units of fuel remaining at this point in the demonstration.
+- Assign suitable personnel and a rover.
+
+**Execution:**
+- Record the colony's fuel total before submission.
+- Submit the mission.
+- Record the fuel total again after submission.
+
+**Expected Result:**
+- The mission is marked `FAILED`.
+- The failure reason indicates insufficient colony resources.
+- The fuel total remains unchanged at 190 units.
+- No partial resource consumption occurs.
+- The mission never becomes active.
+
+**Demonstrated Rules:** Colony-wide resource checking and all-or-nothing resource allocation.
+
+### Scenario 4: Oxygen Leak Emergency
+
+**Setup:**
+- Use the operational Habitat A facility.
+- Create an oxygen leak with a specified loss of 20 oxygen units.
+- Ensure an engineer and a repair-capable robot are available.
+
+**Execution:**
+- Record the habitat's oxygen level before the leak.
+- Create the oxygen leak.
+- Submit the emergency through `MarsColony.reportEmergency()`.
+
+**Expected Result:**
+- The emergency is detected and the affected habitat is identified.
+- The specified 20 oxygen units are deducted from the habitat.
+- Suitable responders are identified and dispatched.
+- The emergency is successfully handled.
+- The habitat remains operational after successful repair.
+- The engineer and repair robot become available again.
+
+In the demonstrated run, oxygen decreases from 245 to 225 units.
+
+**Demonstrated Rules:** Emergency detection, responder selection, emergency handling, oxygen consumption, facility-state management, and responder release.
+
+### Scenario 5: Environmental Effect
+
+**Setup:**
+- Create a separate `Enviroment` object.
+- Set its current condition to `Dust Storm`.
+- Create an exploration mission with ID `EXP-004`.
+
+**Execution:**
+- Check whether the exploration mission is compatible with the current environmental condition using `isEnvironment(environment)`.
+- Check whether the environment allows the mission to start using `startmission(exp004)`.
+- If either check rejects the mission, mark it as `FAILED` and record the failure reason.
+- Restore the environmental condition to Normal after the test.
+
+**Expected Result:**
+- The dust storm prevents the exploration mission from starting.
+- Mission `EXP-004` is marked `FAILED`.
+- The failure reason indicates that environmental conditions prevent the mission from starting.
+- The mission does not become the colony's active mission.
+
+**Demonstrated Rules:** Environmental compatibility checking, environmental restrictions on exploration missions, and mission failure handling.
+
+**Implementation Note:** This scenario tests environmental restrictions directly through the `Enviroment` and `ExplorationMission` objects. It does not test environmental rejection through the colony's normal mission-submission process.
