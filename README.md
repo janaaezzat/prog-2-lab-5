@@ -187,23 +187,24 @@ The colony checks whether suitable responders are available. If the requirements
 
 ## 6. Environmental Effects
 
-The colony supports three environmental conditions.
+The MARS-OPS system models three environmental conditions through the `Enviroment` class.
 
 ### Normal Conditions
-
-Normal colony operations are permitted.
+- Normal colony and mission operations are permitted, subject to mission requirements and resource availability.
 
 ### Dust Storm
-
-- Surface exploration missions cannot begin.
-- Active rover missions are interrupted according to the environmental mission checks.
+- Environmental conditions may prevent or interrupt missions that are incompatible with a dust storm.
+- Whether a mission can continue is determined by the environmental checks applied to that mission.
 
 ### Communication Disruption
+- Communication-dependent operations may be affected by communication disruption.
+- The impact on a mission or robotic unit depends on the environmental rules implemented for that operation.
 
-- Certain communication-dependent missions cannot begin.
-- Remote drone operations may be restricted depending on their capabilities and operating conditions.
-
-Environmental conditions are checked when missions are submitted and while active missions progress.
+### Environmental Checks
+- The colony checks environmental conditions when determining whether a mission can be submitted or continue running.
+- During mission execution, the environment is checked through `canContinueMission()`.
+- If environmental conditions prevent an active mission from continuing, the mission may fail, and its assigned personnel and robots are released.
+- Environmental effects are evaluated alongside mission requirements, resource availability, and the capabilities of assigned agents.
 
 ## 7. Design Decisions and Assumptions
 
