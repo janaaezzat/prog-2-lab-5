@@ -195,14 +195,14 @@ public class MarsOp3 {
         shortageMission.addPersonnel(scientist);
         shortageMission.addRobot(rover);
 
-        int fuelBefore = HabitatFuelTotal();
+        int fuelBefore = Facilities.getFuelTotal();
 
         System.out.println("\nFuel before submission: " + fuelBefore);
         System.out.println("Required fuel: 5000");
 
         colony.submitMission(shortageMission);
 
-        int fuelAfter = HabitatFuelTotal();
+        int fuelAfter = Facilities.getFuelTotal();
 
         System.out.println("\nMission Status: " + shortageMission.getStatus());
         System.out.println("Failure Reason: " + shortageMission.getFailureReason());
@@ -301,8 +301,5 @@ public class MarsOp3 {
         System.out.println("\nAll five required demonstration scenarios finished.");
     }
 
-    // Helper method to read the colony-wide fuel total.
-    private static int HabitatFuelTotal() {
-        return Facilities.getFuelTotal();
-    }
+    
 }
