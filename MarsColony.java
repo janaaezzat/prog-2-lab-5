@@ -71,30 +71,43 @@ public class MarsColony {
 
     //el method deh hast2bal mission gedida, w tet2aked en momken tebda2 wala la2
     public void submitMission(Mission mission) {
-
+    // 1. Check if another mission is active
     if (activeMission != null) {
         mission.failMission("Another mission is already active");
-        return; // maynf34 aktar mn mission active 7ata me4 hkmel ba2y checking requirments
+        return;
     }
-    //new
-
-
+    // 2. Check environmental compatibility
+    if (!mission.isEnvironment(enviroment)) {
+        System.out.println(
+            "Mission rejected due to environmental conditions: "
+            + enviroment.getCurrentCond()
+        );
+        return;
+    }
+    // 3. Check mission personnel and robot requirements
     if (!mission.checkRequirements()) {
-        mission.failMission("Mission requirements for Personnel and/or Robots are not satisfied");
-        return; // mission mal2t4 its needed req to start
+        mission.failMission(
+            "Mission requirements for Personnel and/or Robots are not satisfied"
+        );
+        return;
     }
-    //zadet 34an check of requirements
-    boolean resourcesSecured = consumeColonyResources(mission.getRequiredResources());
+    // 4. Check and consume colony resources
+    boolean resourcesSecured =
+            consumeColonyResources(mission.getRequiredResources());
+
     if (!resourcesSecured) {
         mission.failMission("Insufficient colony resources for this mission.");
         return;
     }
 
-
-   // 8eir keda lw rl requirements tmm w no active missions yeb2a el mission tbd2
+    // 5. Assign and start the mission
     activeMission = mission;
     mission.startMission();
-    System.out.println("Mission " + mission.getMissionId() + " successfully started!");
+
+    System.out.println(
+        "Mission " + mission.getMissionId() + " successfully started!"
+    );
+    //new
 }
   
 // Ne7arrak el simulation time
@@ -245,28 +258,6 @@ public void reportEmergency(Emergency emergency){
         
         }
         }
-    public boolean submitMission(Mission mission, List<RoboticUnits> assignedRobots) {
-        // 1. Check if the mission itself is allowed by the environment
-        if (!mission.isEnvironment(enviroment)) {
-            mission.setStatus(MissionStatus.FAILED);
-            return false;
-        }
-
-        // 2. Check if any assigned robot is crippled by the environment
-        for (RoboticUnits robot : assignedRobots) {
-            if (!robot.canOperate(enviroment)) {
-                System.out.println("Mission failed: Assigned unit " + robot.getClass().getSimpleName() + " is incompatible with current environment.");
-                mission.setStatus(MissionStatus.FAILED);
-                return false;
-            }
-        }
-
-        // If all checks pass, proceed with normal assignment
-        this.activeMission = mission;
-        mission.setStatus(MissionStatus.ASSIGNED);
-        return true;
-    }
-
 
 }
 

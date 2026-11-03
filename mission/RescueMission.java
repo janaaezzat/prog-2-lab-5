@@ -71,6 +71,7 @@ public class RescueMission extends Mission {
     public boolean isEnvironment(Enviroment Enviroment ) {
         if(Enviroment.getCurrentCond()!= null && Enviroment.getCurrentCond().equals(enviroment.Enviroment.commDisruption)){
             System.out.println("Rescue missions cannot start because of a communication disruption.");
+            failMission(enviroment.Enviroment.commDisruption);
             return false;
         }
         return true;

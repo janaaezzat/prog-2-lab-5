@@ -336,14 +336,12 @@ In the demonstrated run, oxygen decreases from 245 to 225 units.
 ### Scenario 5: Environmental Effect
 
 **Setup:**
-- Create a separate `Enviroment` object.
-- Set its current condition to `Dust Storm`.
+- Set the colony's environmental condition to `Dust Storm`.
 - Create an exploration mission with ID `EXP-004`.
 
 **Execution:**
-- Check whether the exploration mission is compatible with the current environmental condition using `isEnvironment(environment)`.
-- Check whether the environment allows the mission to start using `startmission(exp004)`.
-- If either check rejects the mission, mark it as `FAILED` and record the failure reason.
+- Submit the exploration mission through `MarsColony.submitMission()`.
+- The colony checks environmental compatibility before checking the remaining mission requirements.
 - Restore the environmental condition to Normal after the test.
 
 **Expected Result:**
@@ -352,6 +350,110 @@ In the demonstrated run, oxygen decreases from 245 to 225 units.
 - The failure reason indicates that environmental conditions prevent the mission from starting.
 - The mission does not become the colony's active mission.
 
-**Demonstrated Rules:** Environmental compatibility checking, environmental restrictions on exploration missions, and mission failure handling.
+**Demonstrated Rules:** Environmental compatibility checking, colony-level mission submission, environmental restrictions, and mission failure handling.
 
-**Implementation Note:** This scenario tests environmental restrictions directly through the `Enviroment` and `ExplorationMission` objects. It does not test environmental rejection through the colony's normal mission-submission process.
+
+# Test output
+
+========================================
+       MARS-OPS COLONY SIMULATION
+========================================
+Facility was created successfully!
+
+Colony setup completed.
+
+Initial Colony Status:
+Colony-wide oxygen resource total: 250 units
+Colony-wide water resource total: 150 units
+Colony-wide food resource total: 150 units
+Colony-wide fuel resource total: 200 units
+Colony-wide battery power total: 150 units
+Colony-wide medical supplies total: 50 units
+Colony-wide spare parts total: 50 units
+
+
+========================================
+SCENARIO 1: SUCCESSFUL EXPLORATION
+========================================
+
+--- BEFORE EXECUTION ---
+Mission ID: EXP-001
+Mission Status: ASSIGNED
+Surface explored: false
+Scientist available: true
+Rover available: true
+Mission EXP-001 successfully started!
+Exploration of the Surface completed successfully.
+Mission EXP-001 ended with status: COMPLETED
+
+--- AFTER EXECUTION ---
+Mission Status: COMPLETED
+Surface explored: true
+Scientist available: true
+Rover available: true
+Rover battery: 90
+Colony-wide oxygen resource total: 245 units
+Colony-wide water resource total: 145 units
+Colony-wide food resource total: 145 units
+Colony-wide fuel resource total: 190 units
+Colony-wide battery power total: 140 units
+Colony-wide medical supplies total: 50 units
+Colony-wide spare parts total: 50 units
+
+
+========================================
+SCENARIO 2: MISSION REJECTION
+========================================
+
+Submitting exploration mission with an unsuitable agent...
+Mission Status: FAILED
+Failure Reason: Mission requirements for Personnel and/or Robots are not satisfied
+Is this mission active? false
+Engineer available: true
+Rover available: true
+
+
+========================================
+SCENARIO 3: RESOURCE SHORTAGE
+========================================
+
+Fuel before submission: 190
+Required fuel: 5000
+Resource Shortage: Not enough Fuel available colony-wide.
+
+Mission Status: FAILED
+Failure Reason: Insufficient colony resources for this mission.
+Fuel after submission: 190
+Were resources unchanged? true
+Is this mission active? false
+
+
+========================================
+SCENARIO 4: OXYGEN LEAK EMERGENCY
+========================================
+
+Habitat: Habitat A
+Oxygen before leak: 245
+Habitat operational: true
+
+Oxygen after leak: 225
+Habitat repaired successfully.
+
+--- EMERGENCY RESULT ---
+Emergency handled: true
+Failure Reason: null
+Habitat operational: true
+Engineer available: true
+Repair robot available: true
+Oxygen after emergency: 225
+========================================
+SCENARIO 5: ENVIRONMENTAL EFFECT
+========================================
+Environment condition is Dust Storm
+Attempting exploration during a dust storm...
+Exploration missions cannot start because of a dust storm.
+Mission rejected due to environmental conditions: Dust Storm
+Mission Status: FAILED
+Failure Reason: Dust Storm
+Is this mission active? false
+Environment condition is Normal

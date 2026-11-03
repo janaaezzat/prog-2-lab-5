@@ -26,6 +26,7 @@ public class ExplorationMission extends Mission {
     public boolean isEnvironment(Enviroment Enviroment) {
         if(Enviroment.getCurrentCond()!= null && Enviroment.getCurrentCond().equals(enviroment.Enviroment.dustStorm)){
             System.out.println("Exploration missions cannot start because of a dust storm.");
+            failMission(enviroment.Enviroment.dustStorm);
             return false;
         }
         return true;

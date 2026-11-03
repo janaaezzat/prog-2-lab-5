@@ -1,9 +1,6 @@
 package enviroment;
 import mission.ExplorationMission;
 import mission.Mission;
-import roboticunits.RoboticUnits;
-import roboticunits.ExplorationRover;
-import roboticunits.Drone;
 import mission.RescueMission;
 
 public class Enviroment {
@@ -29,27 +26,7 @@ public class Enviroment {
             System.out.println("Invalid environment condition");
 
     }
-    public boolean startmission(Mission mission)
-    {
-        switch (currentCond){
-            case dustStorm:
-                if(mission instanceof ExplorationMission){
-                    System.out.println("Exploration missions cannot start because of a dust storm");
-                    return false;
-                }
-                break;
-            case commDisruption:
-                if(mission instanceof RescueMission){
-                    System.out.println("Rescue missions cannot start because of a communication disruption");
-                    return false;
-                }
-                break;
-            case normal:
-            default:
-                return true;
-        }
-        return true;
-    }
+
 
     public boolean canContinueMission(Mission mission) {
         switch (currentCond) {
@@ -70,29 +47,5 @@ public class Enviroment {
 
         return true;
     }
-    public boolean operateRobot(RoboticUnits roboticUnits){
-        switch (currentCond)
-        {
-            case dustStorm:
 
-                if(roboticUnits instanceof ExplorationRover){
-                    System.out.println("Exploration Rover [" + roboticUnits.getID() + "] operations restricted due to dust storm.");
-                    return false;
-                }
-                break;
-            case commDisruption:
-                if(roboticUnits instanceof Drone drone){
-                    if(drone.getFlyRange()>50){
-                        return false;
-                    }
-                    else return true;
-
-                }
-                break;
-            case normal:
-            default:
-                return true;
-        }
-        return true;
-    }
 }

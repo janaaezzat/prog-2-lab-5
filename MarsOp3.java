@@ -227,46 +227,30 @@ public class MarsOp3 {
         System.out.println("Oxygen after emergency: " + habitat.getOxygen());
 
 
-        System.out.println("========================================");
+       System.out.println("========================================");
         System.out.println("SCENARIO 5: ENVIRONMENTAL EFFECT");
         System.out.println("========================================");
 
-        // 1. Set environment to Dust Storm
-        Enviroment environment=new Enviroment();
-        environment.setCurrentCond(Enviroment.dustStorm);
+        // 1. Set the colony environment to Dust Storm
+        colony.setEnvironmentCondition(Enviroment.dustStorm);
 
-        // 2. Create your exploration mission
-        ExplorationMission exp004 = new ExplorationMission("EXP-004", 3, 10, 10, 5, 5, 5);
+        // 2. Create an exploration mission
+        ExplorationMission exp004 =
+        new ExplorationMission("EXP-004", 3, 10, 10, 5, 5, 5);
 
         System.out.println("Attempting exploration during a dust storm...");
 
-        // 3. CHECK THE ENVIRONMENT FIRST!
-        if (!exp004.isEnvironment(environment) || !environment.startmission(exp004)) {
-            // If environment blocks it, fail the mission cleanly
-            exp004.failMission("Mission cannot start under current environmental conditions.");
-        } else {
-            exp004.startMission();
-        }
+        // 3. Submit through the colony
+        colony.submitMission(exp004);
 
-        // 4. Print status to verify it failed and is NOT active
+        // 4. Verify the result
         System.out.println("Mission Status: " + exp004.getStatus());
         System.out.println("Failure Reason: " + exp004.getFailureReason());
-        System.out.println("Is this mission active? " + (colony.getActiveMission() == exp004));
+        System.out.println("Is this mission active? " +
+        (colony.getActiveMission() == exp004));
 
-        // Reset environment back to normal for the rest of the simulation
-        environment.setCurrentCond(Enviroment.normal);
-
-
-        System.out.println("\n\n========================================");
-        System.out.println("       FINAL COLONY STATUS");
-        System.out.println("========================================");
-
-        colony.colonyStatusReport();
-
-        System.out.println("\nActive mission: " + colony.getActiveMission());
-
-        System.out.println("\nAll five required demonstration scenarios finished.");
-    }
-
+        // 5. Restore normal environment
+        colony.setEnvironmentCondition(Enviroment.normal);      
     
+        }
 }
